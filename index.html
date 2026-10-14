@@ -2,88 +2,262 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>MER 3D Jewellery Files</title>
-  <meta name="description" content="Discover 3DM and STL digital jewellery design files at MER.">
-  <style>
-    * { box-sizing: border-box; }
-    body {
-      margin: 0;
-      font-family: Arial, sans-serif;
-      background: #f6f2eb;
-      color: #25231f;
-    }
-    header {
-      background: #171717;
-      color: white;
-      padding: 24px 18px;
-      text-align: center;
-    }
-    header h1 { margin: 0; font-size: 27px; }
-    header p { color: #d8c6a5; margin-bottom: 0; }
-    main { max-width: 850px; margin: auto; padding: 35px 18px; }
-    .hero {
-      background: white;
-      border-radius: 16px;
-      padding: 30px 20px;
-      text-align: center;
-      box-shadow: 0 4px 18px #0000000c;
-    }
-    .hero h2 { font-size: 29px; }
-    .hero p { color: #625d55; line-height: 1.7; }
-    .formats {
-      display: flex;
-      justify-content: center;
-      flex-wrap: wrap;
-      gap: 10px;
-      margin: 22px 0;
-    }
-    .formats span {
-      background: #eee4d3;
-      padding: 10px 15px;
-      border-radius: 8px;
-      font-weight: bold;
-    }
-    .notice {
-      margin-top: 25px;
-      background: #fff8e9;
-      border: 1px solid #e6d2aa;
-      border-radius: 10px;
-      padding: 15px;
-      font-size: 14px;
-      line-height: 1.6;
-    }
-    footer {
-      text-align: center;
-      padding: 24px 12px;
-      color: #70695f;
-      font-size: 13px;
-    }
-  </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#f7dce5">
+<meta name="description" content="MER 3D Jewellery Files — digital jewellery CAD designs in 3DM and STL formats.">
+<title>MER 3D Jewellery Files</title>
+<style>
+*{box-sizing:border-box}
+:root{
+  --pink:#f7dce5;
+  --rose:#bd818b;
+  --gold:#b68a55;
+  --ink:#30252c;
+  --cream:#fffaf9;
+}
+body{
+  margin:0;
+  font-family:Arial,sans-serif;
+  color:var(--ink);
+  background:var(--cream);
+}
+header{
+  background:linear-gradient(135deg,#fff7f9,#f4d5df);
+  text-align:center;
+  padding:28px 16px 24px;
+  border-bottom:1px solid #ead0d8;
+}
+.logo{
+  font-family:Georgia,serif;
+  font-size:42px;
+  letter-spacing:7px;
+  color:#9f6572;
+  margin:0;
+}
+.tagline{
+  margin:7px 0 0;
+  font-size:12px;
+  letter-spacing:3px;
+  text-transform:uppercase;
+}
+nav{
+  display:flex;
+  justify-content:center;
+  gap:22px;
+  flex-wrap:wrap;
+  padding:15px 10px;
+  background:white;
+  border-bottom:1px solid #f0e2e6;
+}
+nav a{
+  color:var(--ink);
+  text-decoration:none;
+  font-size:14px;
+}
+main{
+  max-width:950px;
+  margin:auto;
+  padding:25px 16px 45px;
+}
+.hero{
+  text-align:center;
+  padding:45px 18px;
+  border-radius:22px;
+  background:linear-gradient(145deg,#f9e6ec,#fff9f8);
+  border:1px solid #efd6de;
+}
+.eyebrow{
+  color:#a56b78;
+  letter-spacing:3px;
+  font-size:11px;
+  font-weight:bold;
+}
+h2{
+  font-family:Georgia,serif;
+  font-size:clamp(30px,7vw,46px);
+  font-weight:normal;
+  line-height:1.2;
+  margin:15px 0;
+}
+.hero p{
+  max-width:520px;
+  margin:12px auto;
+  color:#75636a;
+  line-height:1.8;
+}
+.pills{
+  display:flex;
+  flex-wrap:wrap;
+  justify-content:center;
+  gap:10px;
+  margin:24px 0;
+}
+.pills span{
+  background:white;
+  border:1px solid #e7c4cf;
+  border-radius:30px;
+  padding:10px 17px;
+  font-size:13px;
+}
+.section-title{
+  text-align:center;
+  font-family:Georgia,serif;
+  font-size:30px;
+  font-weight:normal;
+  margin:42px 0 8px;
+}
+.sub{
+  text-align:center;
+  color:#82727a;
+  line-height:1.7;
+  font-size:14px;
+  margin-bottom:22px;
+}
+.grid{
+  display:grid;
+  grid-template-columns:repeat(3,minmax(0,1fr));
+  gap:13px;
+}
+.card{
+  text-align:center;
+  padding:20px 9px;
+  background:white;
+  border:1px solid #f0dfe5;
+  border-radius:15px;
+}
+.symbol{
+  font-size:34px;
+  color:#b47c88;
+  margin:5px 0 13px;
+}
+.card h3{
+  font-family:Georgia,serif;
+  font-weight:normal;
+  font-size:18px;
+  margin:8px 0;
+}
+.card p{
+  font-size:12px;
+  color:#81717a;
+  line-height:1.6;
+  overflow-wrap:anywhere;
+}
+.notice{
+  text-align:center;
+  margin-top:28px;
+  padding:23px 16px;
+  background:white;
+  border:1px solid #e8c9d2;
+  border-radius:16px;
+  line-height:1.8;
+}
+.badge{
+  display:inline-block;
+  background:#f7dce5;
+  color:#865361;
+  padding:6px 12px;
+  border-radius:20px;
+  font-size:11px;
+  font-weight:bold;
+  letter-spacing:1px;
+}
+footer{
+  background:#30252c;
+  color:#f7dce5;
+  text-align:center;
+  padding:27px 15px;
+  font-size:12px;
+  line-height:1.9;
+}
+@media(max-width:520px){
+  .grid{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .hero{padding:35px 13px}
+  nav{gap:15px}
+  .logo{font-size:36px}
+}
+</style>
 </head>
 <body>
-  <header>
-    <h1>MER</h1>
-    <p>3D Jewellery Files</p>
-  </header>
-  <main>
-    <section class="hero">
-      <h2>Welcome to MER</h2>
-      <p>Digital jewellery design files for your creative work.</p>
-      <div class="formats">
-        <span>3DM Files</span>
-        <span>STL Files</span>
-        <span>Digital Downloads</span>
-      </div>
-      <p>Explore our upcoming collection of jewellery CAD designs.</p>
-      <div class="notice">
-        <strong>Coming Soon</strong><br>
-        Our digital collection and secure online payment system are being prepared.
-        No purchases are available yet.
-      </div>
-    </section>
-  </main>
-  <footer>© 2026 MER 3D Jewellery Files</footer>
+<header>
+  <h1 class="logo">MER</h1>
+  <p class="tagline">3D Jewellery Files</p>
+</header>
+
+<nav>
+  <a href="#home">Home</a>
+  <a href="#formats">File Formats</a>
+  <a href="#collection">Collections</a>
+</nav>
+
+<main>
+  <section class="hero" id="home">
+    <span class="eyebrow">DESIGNED FOR CREATORS</span>
+    <h2>Your Ideas.<br>Our Digital Designs.</h2>
+    <p>
+      Discover digital jewellery CAD designs for your creative
+      workflow. Explore our upcoming collection of 3D jewellery files.
+    </p>
+    <div class="pills" id="formats">
+      <span>✧ 3DM Files</span>
+      <span>✧ STL Files</span>
+      <span>✧ Digital Designs</span>
+    </div>
+    <span class="badge">COLLECTION COMING SOON</span>
+  </section>
+
+  <h2 class="section-title" id="collection">Explore Collections</h2>
+  <p class="sub">
+    Jewellery design categories we plan to feature.
+  </p>
+
+  <section class="grid">
+    <article class="card">
+      <div class="symbol">◇</div>
+      <h3>Rings</h3>
+      <p>Digital ring design files</p>
+    </article>
+    <article class="card">
+      <div class="symbol">♡</div>
+      <h3>Pendants</h3>
+      <p>Creative pendant designs</p>
+    </article>
+    <article class="card">
+      <div class="symbol">✧</div>
+      <h3>Necklaces</h3>
+      <p>Necklace CAD designs</p>
+    </article>
+    <article class="card">
+      <div class="symbol">❋</div>
+      <h3>Earrings</h3>
+      <p>Digital earring designs</p>
+    </article>
+    <article class="card">
+      <div class="symbol">♢</div>
+      <h3>Bangles</h3>
+      <p>Bangle CAD designs</p>
+    </article>
+    <article class="card">
+      <div class="symbol">3D</div>
+      <h3>Custom Models</h3>
+      <p>More designs coming soon</p>
+    </article>
+  </section>
+
+  <section class="notice">
+    <strong>Our Store Is Getting Ready</strong>
+    <p>
+      We are preparing our digital jewellery collection and secure
+      checkout. Purchases and downloads are not available yet.
+    </p>
+  </section>
+</main>
+
+<footer>
+  <strong>MER 3D Jewellery Files</strong><br>
+  Digital Jewellery CAD Designs · 3DM · STL<br>
+  © 2026 MER. All rights reserved.
+</footer>
 </body>
 </html>
+
