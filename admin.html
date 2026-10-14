@@ -1,49 +1,150 @@
-
 <!DOCTYPE html>
 <html lang="gu">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>MER Admin</title>
-  <style>
-    body {
-      font-family: Arial, sans-serif;
-      background: #fff5f8;
-      padding: 20px;
-      color: #382630;
-    }
-    .panel {
-      max-width: 420px;
-      margin: 35px auto;
-      padding: 24px;
-      background: white;
-      border: 1px solid #efd5df;
-      border-radius: 18px;
-    }
-    input, button {
-      box-sizing: border-box;
-      width: 100%;
-      padding: 12px;
-      margin: 9px 0;
-      border-radius: 9px;
-      border: 1px solid #ddbdca;
-    }
-    button {
-      background: #b8758d;
-      color: white;
-      font-weight: bold;
-    }
-  </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>MER 3D Jewellery Files - Admin</title>
+<style>
+*{box-sizing:border-box}
+body{
+  margin:0;
+  font-family:Arial,sans-serif;
+  background:#fff5f8;
+  color:#34232b;
+}
+header{
+  background:#b83268;
+  color:white;
+  text-align:center;
+  padding:22px 12px;
+}
+main{
+  max-width:650px;
+  margin:25px auto;
+  padding:20px;
+}
+.card{
+  background:white;
+  padding:22px;
+  border-radius:14px;
+  box-shadow:0 3px 15px #00000012;
+  margin-bottom:20px;
+}
+h2{color:#b83268}
+label{
+  display:block;
+  margin-top:14px;
+  font-weight:bold;
+}
+input,select,button{
+  width:100%;
+  padding:12px;
+  margin-top:7px;
+  border:1px solid #ddd;
+  border-radius:8px;
+  font-size:16px;
+}
+button{
+  background:#b83268;
+  color:white;
+  border:none;
+  cursor:pointer;
+  margin-top:18px;
+}
+.note{
+  background:#fff0c9;
+  padding:12px;
+  border-radius:8px;
+  line-height:1.6;
+}
+#preview{max-width:100%;margin-top:12px}
+</style>
 </head>
 <body>
-  <div class="panel">
-    <h2>MER Admin</h2>
-    <p>Admin Panel Setup</p>
-    <p>અહીંથી પ્રોડક્ટ ઉમેરવાની વ્યવસ્થા તૈયાર થશે.</p>
-    <p><strong>હાલમાં Admin login સેટ થયેલું નથી.</strong></p>
-    <p>સુરક્ષિત login માટે backend જરૂરી છે.</p>
-    <a href="index.html">વેબસાઇટ પર પાછા જાઓ</a>
-  </div>
+<header>
+  <h1>MER 3D JEWELLERY FILES</h1>
+  <p>Admin Panel</p>
+</header>
+
+<main>
+  <section class="card">
+    <h2>પ્રોડક્ટની માહિતી</h2>
+
+    <label>પ્રોડક્ટનું નામ</label>
+    <input id="name" placeholder="ઉદાહરણ: Diamond Ring">
+
+    <label>કિંમત (₹)</label>
+    <input id="price" type="number" value="199" min="1">
+
+    <label>પ્રોડક્ટ કેટેગરી</label>
+    <select id="category">
+      <option>Ring</option>
+      <option>Pendant</option>
+      <option>Earring</option>
+      <option>Bangle</option>
+      <option>Necklace</option>
+    </select>
+
+    <label>પ્રોડક્ટનો ફોટો</label>
+    <input id="photo" type="file" accept="image/*">
+    <img id="preview" alt="Photo preview" hidden>
+
+    <label>3DM ફાઇલ</label>
+    <input id="file3dm" type="file" accept=".3dm">
+
+    <label>STL ફાઇલ</label>
+    <input id="fileStl" type="file" accept=".stl">
+
+    <button onclick="previewProduct()">પ્રોડક્ટની માહિતી તપાસો</button>
+    <div id="result"></div>
+  </section>
+
+  <section class="card">
+    <h2>મહત્વપૂર્ણ સૂચના</h2>
+    <div class="note">
+      આ પેજ હાલ માત્ર પ્રોડક્ટની માહિતી તપાસવા માટે છે.
+      તે વેબસાઇટ પર પ્રોડક્ટ પ્રકાશિત કરતું નથી અને ફાઇલો અપલોડ કરતું નથી.
+      GitHub પર જાહેર રીતે 3DM અથવા STL ફાઇલો મૂકશો નહીં,
+      કારણ કે અન્ય લોકો તેને ડાઉનલોડ કરી શકે છે.
+    </div>
+  </section>
+</main>
+
+<script>
+const photo = document.getElementById('photo');
+photo.addEventListener('change', function(){
+  const img = document.getElementById('preview');
+  if(this.files && this.files[0]){
+    img.src = URL.createObjectURL(this.files[0]);
+    img.hidden = false;
+  } else {
+    img.hidden = true;
+  }
+});
+
+function previewProduct(){
+  const name = document.getElementById('name').value.trim();
+  const price = document.getElementById('price').value;
+  const category = document.getElementById('category').value;
+  const f3dm = document.getElementById('file3dm').files[0];
+  const stl = document.getElementById('fileStl').files[0];
+  const result = document.getElementById('result');
+
+  if(!name || !price){
+    result.textContent = 'પ્રોડક્ટનું નામ અને કિંમત ભરો.';
+    return;
+  }
+
+  result.innerHTML = '';
+  const title = document.createElement('h3');
+  title.textContent = name;
+  const details = document.createElement('p');
+  details.textContent = 'કેટેગરી: ' + category + ' | કિંમત: ₹' + price;
+  const files = document.createElement('p');
+  files.textContent = '3DM: ' + (f3dm ? f3dm.name : 'પસંદ નથી') +
+    ' | STL: ' + (stl ? stl.name : 'પસંદ નથી');
+  result.append(title, details, files);
+}
+</script>
 </body>
 </html>
-
