@@ -1,150 +1,158 @@
+
 <!DOCTYPE html>
 <html lang="gu">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>MER 3D Jewellery Files - Admin</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>MER Admin</title>
 <style>
-*{box-sizing:border-box}
-body{
-  margin:0;
-  font-family:Arial,sans-serif;
-  background:#fff5f8;
-  color:#34232b;
-}
-header{
-  background:#b83268;
-  color:white;
-  text-align:center;
-  padding:22px 12px;
-}
-main{
-  max-width:650px;
-  margin:25px auto;
-  padding:20px;
-}
-.card{
-  background:white;
-  padding:22px;
-  border-radius:14px;
-  box-shadow:0 3px 15px #00000012;
-  margin-bottom:20px;
-}
-h2{color:#b83268}
-label{
-  display:block;
-  margin-top:14px;
-  font-weight:bold;
-}
-input,select,button{
-  width:100%;
-  padding:12px;
-  margin-top:7px;
-  border:1px solid #ddd;
-  border-radius:8px;
-  font-size:16px;
-}
-button{
-  background:#b83268;
-  color:white;
-  border:none;
-  cursor:pointer;
-  margin-top:18px;
-}
-.note{
-  background:#fff0c9;
-  padding:12px;
-  border-radius:8px;
-  line-height:1.6;
-}
-#preview{max-width:100%;margin-top:12px}
+body{font-family:Arial;background:#fff5f8;color:#34232b;margin:0}
+header{background:#b83268;color:white;text-align:center;padding:18px}
+main{max-width:650px;margin:auto;padding:16px}
+.card{background:white;padding:20px;border-radius:14px;margin-bottom:18px}
+label{display:block;margin-top:14px;font-weight:bold}
+input,select,textarea,button{width:100%;padding:12px;margin-top:7px;box-sizing:border-box;font-size:16px;border:1px solid #ddd;border-radius:8px}
+button{background:#b83268;color:white;border:0;margin-top:18px}
+#preview{max-width:100%;max-height:200px}
+#status{white-space:pre-wrap;line-height:1.5}
+.hidden{display:none}
 </style>
 </head>
 <body>
-<header>
-  <h1>MER 3D JEWELLERY FILES</h1>
-  <p>Admin Panel</p>
-</header>
-
+<header><h1>MER 3D JEWELLERY FILES</h1><p>Admin Panel</p></header>
 <main>
-  <section class="card">
-    <h2>પ્રોડક્ટની માહિતી</h2>
+<section class="card" id="loginCard">
+<h2>Admin Login</h2>
+<label>Email</label><input id="email" type="email">
+<label>Password</label><input id="password" type="password">
+<button id="loginBtn">Login</button>
+<p id="loginStatus"></p>
+</section>
 
-    <label>પ્રોડક્ટનું નામ</label>
-    <input id="name" placeholder="ઉદાહરણ: Diamond Ring">
+<section class="card hidden" id="productCard">
+<button id="logoutBtn">Logout</button>
+<h2>પ્રોડક્ટ ઉમેરો</h2>
+<form id="productForm">
+<label>પ્રોડક્ટનું નામ</label>
+<input id="name" required placeholder="MER Rose Ring">
 
-    <label>કિંમત (₹)</label>
-    <input id="price" type="number" value="199" min="1">
+<label>કિંમત (₹)</label>
+<input id="price" type="number" min="1" required>
 
-    <label>પ્રોડક્ટ કેટેગરી</label>
-    <select id="category">
-      <option>Ring</option>
-      <option>Pendant</option>
-      <option>Earring</option>
-      <option>Bangle</option>
-      <option>Necklace</option>
-    </select>
+<label>કેટેગરી</label>
+<select id="category">
+<option>Ring</option><option>Pendant</option>
+<option>Earring</option><option>Bangle</option>
+<option>Necklace</option><option>Custom Models</option>
+</select>
 
-    <label>પ્રોડક્ટનો ફોટો</label>
-    <input id="photo" type="file" accept="image/*">
-    <img id="preview" alt="Photo preview" hidden>
+<label>વિગતો</label>
+<textarea id="details"></textarea>
 
-    <label>3DM ફાઇલ</label>
-    <input id="file3dm" type="file" accept=".3dm">
+<label>પ્રોડક્ટનો ફોટો</label>
+<input id="photo" type="file" accept="image/*" required>
+<img id="preview" hidden alt="Preview">
 
-    <label>STL ફાઇલ</label>
-    <input id="fileStl" type="file" accept=".stl">
-
-    <button onclick="previewProduct()">પ્રોડક્ટની માહિતી તપાસો</button>
-    <div id="result"></div>
-  </section>
-
-  <section class="card">
-    <h2>મહત્વપૂર્ણ સૂચના</h2>
-    <div class="note">
-      આ પેજ હાલ માત્ર પ્રોડક્ટની માહિતી તપાસવા માટે છે.
-      તે વેબસાઇટ પર પ્રોડક્ટ પ્રકાશિત કરતું નથી અને ફાઇલો અપલોડ કરતું નથી.
-      GitHub પર જાહેર રીતે 3DM અથવા STL ફાઇલો મૂકશો નહીં,
-      કારણ કે અન્ય લોકો તેને ડાઉનલોડ કરી શકે છે.
-    </div>
-  </section>
+<p>નોંધ: આ વર્ઝન ફોટો અને પ્રોડક્ટની વિગતો સેવ કરે છે. 3DM/STL ફાઇલો હજી અપલોડ થતી નથી.</p>
+<button id="saveBtn" type="submit">પ્રોડક્ટ સેવ કરો</button>
+</form>
+<p id="status"></p>
+</section>
 </main>
 
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <script>
-const photo = document.getElementById('photo');
-photo.addEventListener('change', function(){
-  const img = document.getElementById('preview');
-  if(this.files && this.files[0]){
-    img.src = URL.createObjectURL(this.files[0]);
-    img.hidden = false;
-  } else {
-    img.hidden = true;
-  }
-});
+const URL='https://djnobdajkadqqafenckq.supabase.co';
+const KEY='sb_publishable_xkFw4ge02yl_op6cdfwCvA_K2ilylUF';
+const db=window.supabase.createClient(URL,KEY);
+const $=id=>document.getElementById(id);
 
-function previewProduct(){
-  const name = document.getElementById('name').value.trim();
-  const price = document.getElementById('price').value;
-  const category = document.getElementById('category').value;
-  const f3dm = document.getElementById('file3dm').files[0];
-  const stl = document.getElementById('fileStl').files[0];
-  const result = document.getElementById('result');
+function show(session){
+  $('loginCard').classList.toggle('hidden',!!session);
+  $('productCard').classList.toggle('hidden',!session);
+}
 
-  if(!name || !price){
-    result.textContent = 'પ્રોડક્ટનું નામ અને કિંમત ભરો.';
+async function checkSession(){
+  const {data,error}=await db.auth.getSession();
+  if(error)$('loginStatus').textContent=error.message;
+  show(data?.session);
+}
+
+$('loginBtn').onclick=async()=>{
+  const {data,error}=await db.auth.signInWithPassword({
+    email:$('email').value.trim(),
+    password:$('password').value
+  });
+  if(error){
+    $('loginStatus').textContent='Login ભૂલ: '+error.message;
     return;
   }
+  show(data.session);
+};
 
-  result.innerHTML = '';
-  const title = document.createElement('h3');
-  title.textContent = name;
-  const details = document.createElement('p');
-  details.textContent = 'કેટેગરી: ' + category + ' | કિંમત: ₹' + price;
-  const files = document.createElement('p');
-  files.textContent = '3DM: ' + (f3dm ? f3dm.name : 'પસંદ નથી') +
-    ' | STL: ' + (stl ? stl.name : 'પસંદ નથી');
-  result.append(title, details, files);
-}
+$('logoutBtn').onclick=async()=>{
+  await db.auth.signOut();
+  show(null);
+};
+
+$('photo').onchange=()=>{
+  const f=$('photo').files[0];
+  if(f){
+    $('preview').src=URL.createObjectURL(f);
+    $('preview').hidden=false;
+  }
+};
+
+$('productForm').onsubmit=async e=>{
+  e.preventDefault();
+  const btn=$('saveBtn');
+  btn.disabled=true;
+  $('status').textContent='પ્રોડક્ટ સેવ થઈ રહી છે…';
+
+  try{
+    const {data:session}=await db.auth.getSession();
+    if(!session.session)throw Error('પહેલાં Admin Login કરો.');
+
+    const file=$('photo').files[0];
+    if(!file || !file.type.startsWith('image/'))
+      throw Error('યોગ્ય ફોટો પસંદ કરો.');
+    if(file.size>5*1024*1024)
+      throw Error('ફોટો 5 MB કરતાં નાનો રાખો.');
+
+    const path=Date.now()+'-'+crypto.randomUUID()+'-'+
+      file.name.replace(/[^a-zA-Z0-9._-]/g,'_');
+
+    const {data:uploaded,error:uploadError}=await db.storage
+      .from('product-images')
+      .upload(path,file,{upsert:false,contentType:file.type});
+
+    if(uploadError)throw Error('ફોટો અપલોડ ભૂલ: '+uploadError.message);
+
+    const {data:url}=db.storage.from('product-images')
+      .getPublicUrl(uploaded.path);
+
+    const {error}=await db.from('products').insert({
+      name:$('name').value.trim(),
+      price:Number($('price').value),
+      category:$('category').value,
+      details:$('details').value.trim(),
+      image_url:url.publicUrl
+    });
+
+    if(error)throw Error('Database ભૂલ: '+error.message);
+
+    $('status').textContent='સફળ! પ્રોડક્ટ સેવ થઈ ગઈ. હવે વેબસાઇટ Refresh કરો.';
+    $('productForm').reset();
+    $('preview').hidden=true;
+  }catch(err){
+    $('status').textContent='ભૂલ: '+err.message;
+  }finally{
+    btn.disabled=false;
+  }
+};
+
+db.auth.onAuthStateChange((_event,session)=>show(session));
+checkSession();
 </script>
 </body>
 </html>
