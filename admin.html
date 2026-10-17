@@ -2,157 +2,481 @@
 <!DOCTYPE html>
 <html lang="gu">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<title>MER Admin</title>
-<style>
-body{font-family:Arial;background:#fff5f8;color:#34232b;margin:0}
-header{background:#b83268;color:white;text-align:center;padding:18px}
-main{max-width:650px;margin:auto;padding:16px}
-.card{background:white;padding:20px;border-radius:14px;margin-bottom:18px}
-label{display:block;margin-top:14px;font-weight:bold}
-input,select,textarea,button{width:100%;padding:12px;margin-top:7px;box-sizing:border-box;font-size:16px;border:1px solid #ddd;border-radius:8px}
-button{background:#b83268;color:white;border:0;margin-top:18px}
-#preview{max-width:100%;max-height:200px}
-#status{white-space:pre-wrap;line-height:1.5}
-.hidden{display:none}
-</style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#b83268">
+  <title>MER Jewellery — Admin</title>
+
+  <style>
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background: #fff5f8;
+      color: #34232b;
+    }
+
+    header {
+      background: linear-gradient(135deg, #8f174b, #d94b82);
+      color: white;
+      padding: 24px 16px;
+      text-align: center;
+    }
+
+    header h1 { margin: 0; font-size: 24px; }
+    header p { margin-bottom: 0; }
+
+    main {
+      width: 100%;
+      max-width: 650px;
+      padding: 16px;
+      margin: auto;
+    }
+
+    .card {
+      background: white;
+      border-radius: 16px;
+      padding: 20px;
+      margin: 18px 0;
+      box-shadow: 0 5px 22px #64203b12;
+    }
+
+    h2 { margin-top: 0; }
+
+    label {
+      display: block;
+      font-weight: bold;
+      margin-top: 15px;
+    }
+
+    input, select, textarea, button {
+      width: 100%;
+      padding: 13px;
+      margin-top: 7px;
+      font: inherit;
+      border-radius: 9px;
+    }
+
+    input, select, textarea {
+      border: 1px solid #dfd2d8;
+      background: #fff;
+      color: #34232b;
+    }
+
+    textarea {
+      min-height: 90px;
+      resize: vertical;
+    }
+
+    button {
+      border: 0;
+      background: #b83268;
+      color: white;
+      font-weight: bold;
+      cursor: pointer;
+      margin-top: 18px;
+    }
+
+    button:disabled {
+      opacity: .6;
+      cursor: wait;
+    }
+
+    .secondary { background: #5d4550; }
+
+    .hidden { display: none !important; }
+
+    #preview {
+      display: block;
+      max-width: 100%;
+      max-height: 250px;
+      margin-top: 12px;
+      border-radius: 10px;
+    }
+
+    .status {
+      white-space: pre-wrap;
+      overflow-wrap: anywhere;
+      line-height: 1.5;
+    }
+
+    .note {
+      background: #fff0f5;
+      border-radius: 9px;
+      padding: 12px;
+      font-size: 14px;
+      line-height: 1.5;
+    }
+  </style>
 </head>
+
 <body>
-<header><h1>MER 3D JEWELLERY FILES</h1><p>Admin Panel</p></header>
-<main>
-<section class="card" id="loginCard">
-<h2>Admin Login</h2>
-<label>Email</label><input id="email" type="email">
-<label>Password</label><input id="password" type="password">
-<button id="loginBtn">Login</button>
-<p id="loginStatus"></p>
-</section>
+  <header>
+    <h1>MER 3D JEWELLERY FILES</h1>
+    <p>Admin Panel</p>
+  </header>
 
-<section class="card hidden" id="productCard">
-<button id="logoutBtn">Logout</button>
-<h2>પ્રોડક્ટ ઉમેરો</h2>
-<form id="productForm">
-<label>પ્રોડક્ટનું નામ</label>
-<input id="name" required placeholder="MER Rose Ring">
+  <main>
+    <section class="card" id="loginCard">
+      <h2>Admin Login</h2>
 
-<label>કિંમત (₹)</label>
-<input id="price" type="number" min="1" required>
+      <form id="loginForm">
+        <label for="email">Email</label>
+        <input
+          id="email"
+          type="email"
+          autocomplete="username"
+          placeholder="તમારો Admin email"
+          required
+        >
 
-<label>કેટેગરી</label>
-<select id="category">
-<option>Ring</option><option>Pendant</option>
-<option>Earring</option><option>Bangle</option>
-<option>Necklace</option><option>Custom Models</option>
-</select>
+        <label for="password">Password</label>
+        <input
+          id="password"
+          type="password"
+          autocomplete="current-password"
+          placeholder="તમારો Password"
+          required
+        >
 
-<label>વિગતો</label>
-<textarea id="details"></textarea>
+        <button id="loginBtn" type="submit">Login</button>
+      </form>
 
-<label>પ્રોડક્ટનો ફોટો</label>
-<input id="photo" type="file" accept="image/*" required>
-<img id="preview" hidden alt="Preview">
+      <p id="loginStatus" class="status" role="status"></p>
+    </section>
 
-<p>નોંધ: આ વર્ઝન ફોટો અને પ્રોડક્ટની વિગતો સેવ કરે છે. 3DM/STL ફાઇલો હજી અપલોડ થતી નથી.</p>
-<button id="saveBtn" type="submit">પ્રોડક્ટ સેવ કરો</button>
-</form>
-<p id="status"></p>
-</section>
-</main>
+    <section class="card hidden" id="productCard">
+      <button id="logoutBtn" type="button" class="secondary">
+        Logout
+      </button>
 
-<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-<script>
-const URL='https://djnobdajkadqqafenckq.supabase.co';
-const KEY='sb_publishable_xkFw4ge02yl_op6cdfwCvA_K2ilylUF';
-const db=window.supabase.createClient(URL,KEY);
-const $=id=>document.getElementById(id);
+      <h2>નવી પ્રોડક્ટ ઉમેરો</h2>
 
-function show(session){
-  $('loginCard').classList.toggle('hidden',!!session);
-  $('productCard').classList.toggle('hidden',!session);
-}
+      <form id="productForm">
+        <label for="name">પ્રોડક્ટનું નામ</label>
+        <input
+          id="name"
+          type="text"
+          placeholder="MER Rose Ring"
+          required
+        >
 
-async function checkSession(){
-  const {data,error}=await db.auth.getSession();
-  if(error)$('loginStatus').textContent=error.message;
-  show(data?.session);
-}
+        <label for="price">કિંમત (₹)</label>
+        <input
+          id="price"
+          type="number"
+          min="1"
+          step="1"
+          placeholder="1500"
+          required
+        >
 
-$('loginBtn').onclick=async()=>{
-  const {data,error}=await db.auth.signInWithPassword({
-    email:$('email').value.trim(),
-    password:$('password').value
-  });
-  if(error){
-    $('loginStatus').textContent='Login ભૂલ: '+error.message;
-    return;
-  }
-  show(data.session);
-};
+        <label for="category">કેટેગરી</label>
+        <select id="category" required>
+          <option value="Ring">Ring</option>
+          <option value="Pendant">Pendant</option>
+          <option value="Earring">Earring</option>
+          <option value="Bangle">Bangle</option>
+          <option value="Necklace">Necklace</option>
+          <option value="Custom Models">Custom Models</option>
+        </select>
 
-$('logoutBtn').onclick=async()=>{
-  await db.auth.signOut();
-  show(null);
-};
+        <label for="details">પ્રોડક્ટની વિગતો</label>
+        <textarea
+          id="details"
+          placeholder="પ્રોડક્ટ વિશે માહિતી લખો"
+        ></textarea>
 
-$('photo').onchange=()=>{
-  const f=$('photo').files[0];
-  if(f){
-    $('preview').src=URL.createObjectURL(f);
-    $('preview').hidden=false;
-  }
-};
+        <label for="photo">પ્રોડક્ટનો ફોટો</label>
+        <input
+          id="photo"
+          type="file"
+          accept="image/jpeg,image/png,image/webp"
+          required
+        >
 
-$('productForm').onsubmit=async e=>{
-  e.preventDefault();
-  const btn=$('saveBtn');
-  btn.disabled=true;
-  $('status').textContent='પ્રોડક્ટ સેવ થઈ રહી છે…';
+        <img id="preview" class="hidden" alt="Photo preview">
 
-  try{
-    const {data:session}=await db.auth.getSession();
-    if(!session.session)throw Error('પહેલાં Admin Login કરો.');
+        <p class="note">
+          JPG, PNG અથવા WebP ફોટો પસંદ કરો. મહત્તમ સાઇઝ 5 MB.
+          આ વર્ઝનમાં ફોટો અને પ્રોડક્ટની વિગતો સેવ થશે.
+          3DM/STL ફાઇલ અપલોડ હજી ઉપલબ્ધ નથી.
+        </p>
 
-    const file=$('photo').files[0];
-    if(!file || !file.type.startsWith('image/'))
-      throw Error('યોગ્ય ફોટો પસંદ કરો.');
-    if(file.size>5*1024*1024)
-      throw Error('ફોટો 5 MB કરતાં નાનો રાખો.');
+        <button id="saveBtn" type="submit">
+          પ્રોડક્ટ સેવ કરો
+        </button>
+      </form>
 
-    const path=Date.now()+'-'+crypto.randomUUID()+'-'+
-      file.name.replace(/[^a-zA-Z0-9._-]/g,'_');
+      <p id="productStatus" class="status" role="status"></p>
+    </section>
+  </main>
 
-    const {data:uploaded,error:uploadError}=await db.storage
-      .from('product-images')
-      .upload(path,file,{upsert:false,contentType:file.type});
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
-    if(uploadError)throw Error('ફોટો અપલોડ ભૂલ: '+uploadError.message);
+  <script>
+    (() => {
+      const SUPABASE_URL =
+        'https://djnobdajkadqqafenckq.supabase.co';
 
-    const {data:url}=db.storage.from('product-images')
-      .getPublicUrl(uploaded.path);
+      const SUPABASE_KEY =
+        'sb_publishable_xkFw4ge02yl_op6cdfwCvA_K2ilylUF';
 
-    const {error}=await db.from('products').insert({
-      name:$('name').value.trim(),
-      price:Number($('price').value),
-      category:$('category').value,
-      details:$('details').value.trim(),
-      image_url:url.publicUrl
-    });
+      const $ = (id) => document.getElementById(id);
 
-    if(error)throw Error('Database ભૂલ: '+error.message);
+      const loginCard = $('loginCard');
+      const productCard = $('productCard');
+      const loginForm = $('loginForm');
+      const productForm = $('productForm');
+      const loginBtn = $('loginBtn');
+      const saveBtn = $('saveBtn');
+      const loginStatus = $('loginStatus');
+      const productStatus = $('productStatus');
+      const photoInput = $('photo');
+      const preview = $('preview');
 
-    $('status').textContent='સફળ! પ્રોડક્ટ સેવ થઈ ગઈ. હવે વેબસાઇટ Refresh કરો.';
-    $('productForm').reset();
-    $('preview').hidden=true;
-  }catch(err){
-    $('status').textContent='ભૂલ: '+err.message;
-  }finally{
-    btn.disabled=false;
-  }
-};
+      let db;
+      let currentPreviewUrl = null;
 
-db.auth.onAuthStateChange((_event,session)=>show(session));
-checkSession();
-</script>
+      function showSession(session) {
+        loginCard.classList.toggle('hidden', !!session);
+        productCard.classList.toggle('hidden', !session);
+      }
+
+      function showLoginError(message) {
+        loginStatus.textContent = message;
+      }
+
+      async function initialize() {
+        if (!window.supabase) {
+          showLoginError(
+            'Supabase લોડ થયું નથી. ઇન્ટરનેટ તપાસો અને પેજ ફરી ખોલો.'
+          );
+          loginBtn.disabled = true;
+          return;
+        }
+
+        db = window.supabase.createClient(
+          SUPABASE_URL,
+          SUPABASE_KEY
+        );
+
+        db.auth.onAuthStateChange((_event, session) => {
+          showSession(session);
+        });
+
+        try {
+          const { data, error } = await db.auth.getSession();
+
+          if (error) throw error;
+
+          showSession(data.session);
+        } catch (error) {
+          showLoginError('Session ભૂલ: ' + error.message);
+        }
+      }
+
+      loginForm.addEventListener('submit', async (event) => {
+        event.preventDefault();
+
+        if (!db) {
+          showLoginError('Supabase તૈયાર નથી. પેજ ફરી ખોલો.');
+          return;
+        }
+
+        loginBtn.disabled = true;
+        showLoginError('Login થઈ રહ્યું છે...');
+
+        try {
+          const email = $('email').value.trim();
+          const password = $('password').value;
+
+          if (!email || !password) {
+            throw new Error('Email અને Password લખો.');
+          }
+
+          const { data, error } =
+            await db.auth.signInWithPassword({
+              email,
+              password
+            });
+
+          if (error) throw error;
+
+          showSession(data.session);
+          showLoginError('Login સફળ થયું!');
+        } catch (error) {
+          showLoginError('Login ભૂલ: ' + error.message);
+        } finally {
+          loginBtn.disabled = false;
+        }
+      });
+
+      $('logoutBtn').addEventListener('click', async () => {
+        const button = $('logoutBtn');
+        button.disabled = true;
+
+        try {
+          const { error } = await db.auth.signOut();
+          if (error) throw error;
+
+          showSession(null);
+          showLoginError('તમે Logout થયા છો.');
+        } catch (error) {
+          productStatus.textContent =
+            'Logout ભૂલ: ' + error.message;
+        } finally {
+          button.disabled = false;
+        }
+      });
+
+      photoInput.addEventListener('change', () => {
+        const file = photoInput.files[0];
+
+        if (currentPreviewUrl) {
+          URL.revokeObjectURL(currentPreviewUrl);
+          currentPreviewUrl = null;
+        }
+
+        if (!file) {
+          preview.classList.add('hidden');
+          preview.removeAttribute('src');
+          return;
+        }
+
+        if (!file.type.startsWith('image/')) {
+          productStatus.textContent = 'કૃપા કરીને ફોટો પસંદ કરો.';
+          photoInput.value = '';
+          preview.classList.add('hidden');
+          return;
+        }
+
+        currentPreviewUrl = URL.createObjectURL(file);
+        preview.src = currentPreviewUrl;
+        preview.classList.remove('hidden');
+        productStatus.textContent = '';
+      });
+
+      productForm.addEventListener('submit', async (event) => {
+        event.preventDefault();
+
+        if (!db) {
+          productStatus.textContent = 'Supabase તૈયાર નથી.';
+          return;
+        }
+
+        saveBtn.disabled = true;
+        productStatus.textContent = 'પ્રોડક્ટ સેવ થઈ રહી છે...';
+
+        let uploadedPath = null;
+
+        try {
+          const { data: sessionData, error: sessionError } =
+            await db.auth.getSession();
+
+          if (sessionError) throw sessionError;
+
+          if (!sessionData.session) {
+            throw new Error('પહેલાં Admin Login કરો.');
+          }
+
+          const name = $('name').value.trim();
+          const price = Number($('price').value);
+          const category = $('category').value;
+          const details = $('details').value.trim();
+          const file = photoInput.files[0];
+
+          if (!name) {
+            throw new Error('પ્રોડક્ટનું નામ લખો.');
+          }
+
+          if (!Number.isFinite(price) || price <= 0) {
+            throw new Error('યોગ્ય કિંમત લખો.');
+          }
+
+          if (!file || !file.type.startsWith('image/')) {
+            throw new Error('પ્રોડક્ટનો ફોટો પસંદ કરો.');
+          }
+
+          if (file.size > 5 * 1024 * 1024) {
+            throw new Error('ફોટો 5 MB કરતાં નાનો રાખો.');
+          }
+
+          const safeName = file.name.replace(
+            /[^a-zA-Z0-9._-]/g,
+            '_'
+          );
+
+          const path =
+            Date.now() + '-' +
+            Math.random().toString(36).slice(2) + '-' +
+            safeName;
+
+          const { data: uploaded, error: uploadError } =
+            await db.storage
+              .from('product-images')
+              .upload(path, file, {
+                upsert: false,
+                contentType: file.type
+              });
+
+          if (uploadError) {
+            throw new Error(
+              'ફોટો અપલોડ ભૂલ: ' + uploadError.message
+            );
+          }
+
+          uploadedPath = uploaded.path;
+
+          const { data: publicUrlData } = db.storage
+            .from('product-images')
+            .getPublicUrl(uploaded.path);
+
+          const imageUrl = publicUrlData.publicUrl;
+
+          const { error: insertError } = await db
+            .from('products')
+            .insert([{
+              name,
+              price,
+              category,
+              details,
+              image_url: imageUrl
+            }]);
+
+          if (insertError) {
+            throw new Error(
+              'Database ભૂલ: ' + insertError.message
+            );
+          }
+
+          productStatus.textContent =
+            'સફળ! પ્રોડક્ટ સેવ થઈ ગઈ છે. હવે મુખ્ય વેબસાઇટ Refresh કરો.';
+
+          productForm.reset();
+          preview.classList.add('hidden');
+          preview.removeAttribute('src');
+
+          if (currentPreviewUrl) {
+            URL.revokeObjectURL(currentPreviewUrl);
+            currentPreviewUrl = null;
+          }
+        } catch (error) {
+          productStatus.textContent =
+            'ભૂલ: ' + (error.message || 'કંઈક ખોટું થયું.');
+
+          if (uploadedPath) {
+            productStatus.textContent +=
+              '\nફોટો અપલોડ થયો હોઈ શકે છે, પરંતુ પ્રોડક્ટ સેવ ન થઈ.';
+          }
+        } finally {
+          saveBtn.disabled = false;
+        }
+      });
+
+      initialize();
+    })();
+  </script>
 </body>
 </html>
