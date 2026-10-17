@@ -1,2 +1,2 @@
-# mer-3d-jewellery-files
+# MER JEWELLERY files
 MER 3D Jewellery Files Store
