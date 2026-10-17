@@ -1,700 +1,265 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="theme-color" content="#f7dce5">
-  <meta name="description" content="MER 3D Jewellery Files — explore digital jewellery CAD designs, 3DM and STL files.">
-  <title>MER 3D Jewellery Files</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#f7dce5">
+<meta name="description" content="MER 3D Jewellery Files - Digital Jewellery CAD Designs">
+<title>MER 3D Jewellery Files</title>
+<style>
+:root{--pink:#f7dce5;--rose:#a56b78;--dark:#282128;--muted:#766b73;--cream:#fffaf8;--border:#f0dfe5}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;font-family:Arial,Helvetica,sans-serif;color:var(--dark);background:var(--cream);line-height:1.6}
+a{color:inherit;text-decoration:none}
+button{font:inherit;cursor:pointer}
+.topbar{background:var(--dark);color:white;text-align:center;padding:8px 12px;font-size:12px;letter-spacing:1px}
+header{background:rgba(255,250,248,.96);border-bottom:1px solid var(--border);position:sticky;top:0;z-index:10}
+.nav{max-width:1150px;margin:auto;padding:15px 20px;display:flex;align-items:center;justify-content:space-between;gap:18px}
+.brand{font-size:23px;font-weight:900;letter-spacing:2px}
+.brand span{color:var(--rose)}
+.nav-links{display:flex;align-items:center;gap:22px;font-size:14px}
+.nav-links a:hover{color:var(--rose)}
+.contact-btn,.primary-btn{display:inline-block;border:0;border-radius:30px;padding:12px 20px;background:var(--dark);color:white;cursor:pointer;font-weight:700}
+.contact-btn:hover,.primary-btn:hover{background:var(--rose)}
+.hero{max-width:1150px;margin:auto;padding:75px 20px 65px;display:grid;grid-template-columns:1.1fr .9fr;align-items:center;gap:40px}
+.eyebrow{display:inline-block;color:var(--rose);font-size:12px;font-weight:800;letter-spacing:2px;margin-bottom:15px}
+h1{font-size:clamp(38px,6vw,68px);line-height:1.08;margin:0 0 20px;letter-spacing:-2px}
+h1 span{color:var(--rose)}
+.hero p{color:var(--muted);max-width:540px;font-size:16px;margin-bottom:26px}
+.pills{display:flex;flex-wrap:wrap;gap:9px;margin-top:25px}
+.pills span{background:white;border:1px solid var(--border);padding:8px 13px;border-radius:25px;font-size:12px}
+.hero-art{min-height:330px;border-radius:28px;background:linear-gradient(145deg,#f7dce5,#fdf1f4 55%,#ead1d8);display:flex;align-items:center;justify-content:center;position:relative;overflow:hidden}
+.hero-art:before,.hero-art:after{content:"";position:absolute;border:1px solid rgba(165,107,120,.35);border-radius:50%}
+.hero-art:before{width:260px;height:260px}.hero-art:after{width:190px;height:190px}
+.diamond{position:relative;z-index:1;font-size:115px;color:var(--rose);text-shadow:0 12px 25px rgba(80,30,50,.18)}
+.section{max-width:1150px;margin:auto;padding:35px 20px 65px}
+.section-title{font-size:clamp(27px,4vw,40px);line-height:1.2;margin:0 0 10px}
+.sub{color:var(--muted);margin:0 0 30px}
+.status{padding:14px 16px;border-radius:12px;background:white;border:1px solid var(--border);color:var(--muted);margin-bottom:20px;font-size:14px}
+.grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:22px}
+.card{background:white;border:1px solid var(--border);border-radius:18px;overflow:hidden;transition:transform .2s,box-shadow .2s}
+.card:hover{transform:translateY(-4px);box-shadow:0 14px 35px rgba(90,40,60,.09)}
+.product-image{width:100%;height:220px;object-fit:contain;display:block;background:var(--pink);cursor:zoom-in}
+.image-placeholder{height:190px;display:flex;align-items:center;justify-content:center;background:linear-gradient(145deg,#f7dce5,#fff2f5);color:var(--rose);font-size:65px}
+.card-content{padding:20px}
+.badge{display:inline-block;border-radius:20px;padding:5px 10px;background:var(--pink);color:#865361;font-size:10px;font-weight:800;letter-spacing:1px;text-transform:uppercase}
+.card h3{margin:12px 0 7px;font-size:20px;overflow-wrap:anywhere}
+.card p{margin:7px 0;color:var(--muted);font-size:14px;overflow-wrap:anywhere}
+.price{color:var(--rose);font-size:24px;font-weight:900;margin:15px 0}
+.card .primary-btn{width:100%;text-align:center;margin-top:12px}
+.features{background:#f8e9ee;padding:55px 20px}
+.features-inner{max-width:1150px;margin:auto}
+.feature-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:20px;margin-top:28px}
+.feature{background:rgba(255,255,255,.8);border:1px solid rgba(165,107,120,.15);border-radius:16px;padding:23px}
+.feature-icon{font-size:30px;margin-bottom:10px}
+.feature h3{margin:0 0 8px}
+.feature p{color:var(--muted);font-size:14px;margin:0}
+.about{display:grid;grid-template-columns:1fr 1fr;gap:35px;align-items:center}
+.about-panel{background:white;border:1px solid var(--border);border-radius:20px;padding:28px}
+.about-panel p{color:var(--muted)}
+.cta{text-align:center;padding:55px 20px;background:var(--dark);color:white}
+.cta p{color:#e6dbe0;max-width:600px;margin:12px auto 25px}
+.cta .primary-btn{background:var(--pink);color:var(--dark)}
+footer{background:#211b21;color:#e8dfe4;text-align:center;padding:25px 15px;font-size:13px}
+footer p{margin:5px}
+.whatsapp-float{position:fixed;right:17px;bottom:18px;z-index:20;padding:13px 17px;border-radius:30px;background:#168b53;color:white;font-size:14px;font-weight:800;box-shadow:0 5px 18px rgba(0,0,0,.18)}
+.empty{grid-column:1/-1;text-align:center;background:white;border:1px solid var(--border);border-radius:16px;padding:35px 20px;color:var(--muted)}
 
-  <style>
-    :root {
-      --pink: #f7dce5;
-      --pink-dark: #e9a9bf;
-      --rose: #a56b78;
-      --dark: #282128;
-      --muted: #766b73;
-      --cream: #fffaf8;
-      --white: #ffffff;
-      --border: #f0dfe5;
-    }
-
-    * { box-sizing: border-box; }
-
-    html { scroll-behavior: smooth; }
-
-    body {
-      margin: 0;
-      font-family: Arial, Helvetica, sans-serif;
-      color: var(--dark);
-      background: var(--cream);
-      line-height: 1.6;
-    }
-
-    a { color: inherit; text-decoration: none; }
-
-    button { font: inherit; }
-
-    .topbar {
-      background: var(--dark);
-      color: white;
-      text-align: center;
-      padding: 8px 12px;
-      font-size: 12px;
-      letter-spacing: 1px;
-    }
-
-    header {
-      background: rgba(255,250,248,.96);
-      border-bottom: 1px solid var(--border);
-      position: sticky;
-      top: 0;
-      z-index: 10;
-    }
-
-    .nav {
-      max-width: 1150px;
-      margin: auto;
-      padding: 15px 20px;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 18px;
-    }
-
-    .brand {
-      font-size: 23px;
-      font-weight: 900;
-      letter-spacing: 2px;
-    }
-
-    .brand span { color: var(--rose); }
-
-    .nav-links {
-      display: flex;
-      align-items: center;
-      gap: 22px;
-      font-size: 14px;
-    }
-
-    .nav-links a:hover { color: var(--rose); }
-
-    .contact-btn, .primary-btn {
-      display: inline-block;
-      border: 0;
-      border-radius: 30px;
-      padding: 12px 20px;
-      background: var(--dark);
-      color: white;
-      cursor: pointer;
-      font-weight: 700;
-    }
-
-    .contact-btn:hover, .primary-btn:hover {
-      background: var(--rose);
-    }
-
-    .hero {
-      max-width: 1150px;
-      margin: auto;
-      padding: 75px 20px 65px;
-      display: grid;
-      grid-template-columns: 1.1fr .9fr;
-      align-items: center;
-      gap: 40px;
-    }
-
-    .eyebrow {
-      display: inline-block;
-      color: var(--rose);
-      font-size: 12px;
-      font-weight: 800;
-      letter-spacing: 2px;
-      margin-bottom: 15px;
-    }
-
-    h1 {
-      font-size: clamp(38px, 6vw, 68px);
-      line-height: 1.08;
-      margin: 0 0 20px;
-      letter-spacing: -2px;
-    }
-
-    h1 span { color: var(--rose); }
-
-    .hero p {
-      color: var(--muted);
-      max-width: 540px;
-      font-size: 16px;
-      margin-bottom: 26px;
-    }
-
-    .pills {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 9px;
-      margin-top: 25px;
-    }
-
-    .pills span {
-      background: white;
-      border: 1px solid var(--border);
-      padding: 8px 13px;
-      border-radius: 25px;
-      font-size: 12px;
-    }
-
-    .hero-art {
-      min-height: 330px;
-      border-radius: 28px;
-      background: linear-gradient(145deg, #f7dce5, #fdf1f4 55%, #ead1d8);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      position: relative;
-      overflow: hidden;
-    }
-
-    .hero-art::before {
-      content: "";
-      position: absolute;
-      width: 260px;
-      height: 260px;
-      border: 1px solid rgba(165,107,120,.35);
-      border-radius: 50%;
-    }
-
-    .hero-art::after {
-      content: "";
-      position: absolute;
-      width: 190px;
-      height: 190px;
-      border: 1px solid rgba(165,107,120,.35);
-      border-radius: 50%;
-    }
-
-    .diamond {
-      position: relative;
-      z-index: 1;
-      font-size: 115px;
-      color: #a56b78;
-      text-shadow: 0 12px 25px rgba(80,30,50,.18);
-    }
-
-    .section {
-      max-width: 1150px;
-      margin: auto;
-      padding: 35px 20px 65px;
-    }
-
-    .section-title {
-      font-size: clamp(27px, 4vw, 40px);
-      line-height: 1.2;
-      margin: 0 0 10px;
-    }
-
-    .sub {
-      color: var(--muted);
-      margin: 0 0 30px;
-    }
-
-    .status {
-      padding: 14px 16px;
-      border-radius: 12px;
-      background: #fff;
-      border: 1px solid var(--border);
-      color: var(--muted);
-      margin-bottom: 20px;
-      font-size: 14px;
-    }
-
-    .grid {
-      display: grid;
-      grid-template-columns: repeat(3, minmax(0, 1fr));
-      gap: 22px;
-    }
-
-    .card {
-      background: white;
-      border: 1px solid var(--border);
-      border-radius: 18px;
-      overflow: hidden;
-      transition: transform .2s, box-shadow .2s;
-    }
-
-    .card:hover {
-      transform: translateY(-4px);
-      box-shadow: 0 14px 35px rgba(90,40,60,.09);
-    }
-
-    .product-image {
-      width: 100%;
-      height: 220px;
-      object-fit: cover;
-      display: block;
-      background: var(--pink);
-    }
-
-    .image-placeholder {
-      height: 190px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      background: linear-gradient(145deg, #f7dce5, #fff2f5);
-      color: var(--rose);
-      font-size: 65px;
-    }
-
-    .card-content { padding: 20px; }
-
-    .badge {
-      display: inline-block;
-      border-radius: 20px;
-      padding: 5px 10px;
-      background: var(--pink);
-      color: #865361;
-      font-size: 10px;
-      font-weight: 800;
-      letter-spacing: 1px;
-      text-transform: uppercase;
-    }
-
-    .card h3 {
-      margin: 12px 0 7px;
-      font-size: 20px;
-      overflow-wrap: anywhere;
-    }
-
-    .card p {
-      margin: 7px 0;
-      color: var(--muted);
-      font-size: 14px;
-      overflow-wrap: anywhere;
-    }
-
-    .price {
-      color: var(--rose);
-      font-size: 24px;
-      font-weight: 900;
-      margin: 15px 0;
-    }
-
-    .card .primary-btn {
-      width: 100%;
-      text-align: center;
-      margin-top: 12px;
-    }
-
-    .features {
-      background: #f8e9ee;
-      padding: 55px 20px;
-    }
-
-    .features-inner {
-      max-width: 1150px;
-      margin: auto;
-    }
-
-    .feature-grid {
-      display: grid;
-      grid-template-columns: repeat(3, minmax(0, 1fr));
-      gap: 20px;
-      margin-top: 28px;
-    }
-
-    .feature {
-      background: rgba(255,255,255,.8);
-      border: 1px solid rgba(165,107,120,.15);
-      border-radius: 16px;
-      padding: 23px;
-    }
-
-    .feature-icon {
-      font-size: 30px;
-      margin-bottom: 10px;
-    }
-
-    .feature h3 { margin: 0 0 8px; }
-
-    .feature p {
-      color: var(--muted);
-      font-size: 14px;
-      margin: 0;
-    }
-
-    .about {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 35px;
-      align-items: center;
-    }
-
-    .about-panel {
-      background: white;
-      border: 1px solid var(--border);
-      border-radius: 20px;
-      padding: 28px;
-    }
-
-    .about-panel p { color: var(--muted); }
-
-    .cta {
-      text-align: center;
-      padding: 55px 20px;
-      background: var(--dark);
-      color: white;
-    }
-
-    .cta p {
-      color: #e6dbe0;
-      max-width: 600px;
-      margin: 12px auto 25px;
-    }
-
-    .cta .primary-btn {
-      background: var(--pink);
-      color: var(--dark);
-    }
-
-    footer {
-      background: #211b21;
-      color: #e8dfe4;
-      text-align: center;
-      padding: 25px 15px;
-      font-size: 13px;
-    }
-
-    footer p { margin: 5px; }
-
-    .whatsapp-float {
-      position: fixed;
-      right: 17px;
-      bottom: 18px;
-      z-index: 20;
-      padding: 13px 17px;
-      border-radius: 30px;
-      background: #168b53;
-      color: white;
-      font-size: 14px;
-      font-weight: 800;
-      box-shadow: 0 5px 18px rgba(0,0,0,.18);
-    }
-
-    .empty {
-      grid-column: 1 / -1;
-      text-align: center;
-      background: white;
-      border: 1px solid var(--border);
-      border-radius: 16px;
-      padding: 35px 20px;
-      color: var(--muted);
-    }
-
-    @media (max-width: 760px) {
-      .nav { padding: 13px 15px; }
-      .brand { font-size: 19px; }
-      .nav-links { gap: 12px; font-size: 12px; }
-      .nav-links .hide-mobile { display: none; }
-      .contact-btn { padding: 10px 13px; font-size: 12px; }
-      .hero {
-        padding-top: 45px;
-        grid-template-columns: 1fr;
-        gap: 28px;
-      }
-      .hero-art { min-height: 250px; }
-      .diamond { font-size: 95px; }
-      .grid { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; }
-      .product-image { height: 150px; }
-      .image-placeholder { height: 150px; font-size: 48px; }
-      .card-content { padding: 13px; }
-      .card h3 { font-size: 17px; }
-      .card p { font-size: 12px; }
-      .price { font-size: 21px; }
-      .card .primary-btn { padding: 10px 8px; font-size: 12px; }
-      .feature-grid { grid-template-columns: 1fr; }
-      .about { grid-template-columns: 1fr; }
-      .section { padding-bottom: 45px; }
-    }
-
-    @media (max-width: 360px) {
-      .grid { grid-template-columns: 1fr; }
-      .nav-links { gap: 8px; }
-    }
-  </style>
+/* Product details popup */
+.product-modal{display:none;position:fixed;inset:0;z-index:100;background:rgba(20,12,19,.82);padding:16px;overflow-y:auto;align-items:center;justify-content:center}
+.product-modal.open{display:flex}
+.modal-panel{background:var(--cream);width:100%;max-width:760px;border-radius:20px;overflow:hidden;position:relative;margin:auto;box-shadow:0 20px 70px #0005}
+.modal-close{position:absolute;top:10px;right:10px;z-index:2;border:0;border-radius:50%;width:42px;height:42px;background:white;color:#282128;font-size:27px;box-shadow:0 2px 10px #0002}
+.modal-image{display:block;width:100%;height:min(52vh,420px);object-fit:contain;background:#f7dce5;cursor:zoom-in}
+.modal-content{padding:22px}
+.modal-content h2{font-size:clamp(23px,5vw,32px);line-height:1.25;margin:12px 0;overflow-wrap:anywhere}
+.modal-price{font-size:27px;font-weight:900;color:var(--rose);margin:8px 0 16px}
+.modal-description{white-space:pre-wrap;overflow-wrap:anywhere;color:var(--muted);line-height:1.8}
+.modal-order{display:block;text-align:center;background:#168b53;color:white;font-weight:bold;padding:15px;border-radius:12px;margin-top:20px}
+.zoom-hint{font-size:12px;color:var(--muted);margin:5px 0 0;text-align:center}
+@media(max-width:760px){
+.nav{padding:13px 15px}.brand{font-size:19px}.nav-links{gap:12px;font-size:12px}.nav-links .hide-mobile{display:none}.contact-btn{padding:10px 13px;font-size:12px}
+.hero{padding-top:45px;grid-template-columns:1fr;gap:28px}.hero-art{min-height:250px}.diamond{font-size:95px}
+.grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}.product-image{height:150px}.image-placeholder{height:150px;font-size:48px}
+.card-content{padding:13px}.card h3{font-size:17px}.card p{font-size:12px}.price{font-size:21px}.card .primary-btn{padding:10px 8px;font-size:12px}
+.feature-grid,.about{grid-template-columns:1fr}.section{padding-bottom:45px}
+.modal-content{padding:17px}.product-modal{padding:10px}
+}
+@media(max-width:360px){.grid{grid-template-columns:1fr}.nav-links{gap:8px}}
+</style>
 </head>
-
 <body>
-  <div class="topbar">
-    DIGITAL JEWELLERY CAD DESIGNS · 3DM · STL
-  </div>
+<div class="topbar">DIGITAL JEWELLERY CAD DESIGNS · 3DM · STL</div>
+<header>
+<nav class="nav">
+<a class="brand" href="#home">MER <span>3D</span></a>
+<div class="nav-links">
+<a href="#home">Home</a><a href="#collection">Designs</a><a class="hide-mobile" href="#about">About</a>
+<a class="contact-btn" href="https://wa.me/message/ZJLG6ZL7BI2GO1" target="_blank" rel="noopener">Contact</a>
+</div>
+</nav>
+</header>
+<main>
+<section class="hero" id="home">
+<div>
+<span class="eyebrow">DESIGNED FOR CREATORS</span>
+<h1>Your Ideas.<br>Our <span>Digital Designs.</span></h1>
+<p>Discover digital jewellery CAD designs for your workflow. Explore rings, pendants and other jewellery designs.</p>
+<a class="primary-btn" href="#collection">Explore Designs →</a>
+<div class="pills"><span>✧ 3DM Files</span><span>✧ STL Files</span><span>✧ Digital Designs</span></div>
+</div>
+<div class="hero-art" aria-label="Decorative jewellery design illustration"><div class="diamond">◇</div></div>
+</section>
 
-  <header>
-    <nav class="nav">
-      <a class="brand" href="#home">MER <span>3D</span></a>
+<section class="section" id="collection">
+<span class="eyebrow">OUR COLLECTION</span>
+<h2 class="section-title">Explore Jewellery Designs</h2>
+<p class="sub">ફોટા પર ટેપ કરીને મોટી ઇમેજ અને સંપૂર્ણ વિગતો જુઓ.</p>
+<div class="status" id="loadStatus" role="status" aria-live="polite">Loading jewellery designs...</div>
+<section class="grid" id="productGrid"><p>Loading jewellery designs...</p></section>
+</section>
 
-      <div class="nav-links">
-        <a href="#home">Home</a>
-        <a href="#collection">Designs</a>
-        <a class="hide-mobile" href="#about">About</a>
-        <a class="contact-btn"
-           href="https://wa.me/message/ZJLG6ZL7BI2GO1"
-           target="_blank" rel="noopener">Contact</a>
-      </div>
-    </nav>
-  </header>
+<section class="features"><div class="features-inner">
+<span class="eyebrow">WHY MER</span><h2 class="section-title">Made for Jewellery Creators</h2>
+<p class="sub">A simple place to discover digital jewellery design files.</p>
+<div class="feature-grid">
+<article class="feature"><div class="feature-icon">◇</div><h3>Jewellery Designs</h3><p>Explore different digital jewellery designs in our catalogue.</p></article>
+<article class="feature"><div class="feature-icon">⌘</div><h3>Digital Formats</h3><p>Product listings can specify supported file formats and details.</p></article>
+<article class="feature"><div class="feature-icon">♡</div><h3>Direct Contact</h3><p>Contact MER through WhatsApp to ask about a design or purchase.</p></article>
+</div></div></section>
 
-  <main>
-    <section class="hero" id="home">
-      <div>
-        <span class="eyebrow">DESIGNED FOR CREATORS</span>
-        <h1>Your Ideas.<br>Our <span>Digital Designs.</span></h1>
+<section class="section about" id="about">
+<div><span class="eyebrow">ABOUT MER</span><h2 class="section-title">Your Jewellery Design Partner</h2>
+<p class="sub">MER 3D Jewellery Files is a catalogue for digital jewellery designs. Browse available listings and contact us for product information.</p>
+<a class="primary-btn" href="https://wa.me/message/ZJLG6ZL7BI2GO1" target="_blank" rel="noopener">Talk to Us</a></div>
+<div class="about-panel"><h3>Looking for a particular design?</h3><p>Message us with the design name or a reference image. We can discuss availability, file formats and pricing.</p><p><strong>MER 3D Jewellery Files</strong></p></div>
+</section>
 
-        <p>
-          Discover digital jewellery CAD designs for your workflow.
-          Explore rings, pendants and other jewellery designs.
-          Find the right design for your creative work.
-        </p>
+<section class="cta"><span class="eyebrow">LET'S CREATE</span><h2 class="section-title">Find Your Next Design</h2>
+<p>Have a question about a jewellery file? Contact MER directly on WhatsApp.</p>
+<a class="primary-btn" href="https://wa.me/message/ZJLG6ZL7BI2GO1" target="_blank" rel="noopener">Contact on WhatsApp</a></section>
+</main>
 
-        <a class="primary-btn" href="#collection">Explore Designs →</a>
+<footer><p><strong>MER 3D JEWELLERY FILES</strong></p><p>Digital Jewellery CAD Designs · 3DM · STL</p><p>© <span id="year"></span> MER. All rights reserved.</p></footer>
+<a class="whatsapp-float" href="https://wa.me/message/ZJLG6ZL7BI2GO1" target="_blank" rel="noopener" aria-label="Contact MER on WhatsApp">WhatsApp ↗</a>
 
-        <div class="pills">
-          <span>✧ 3DM Files</span>
-          <span>✧ STL Files</span>
-          <span>✧ Digital Designs</span>
-        </div>
-      </div>
+<!-- Product detail popup -->
+<div class="product-modal" id="productModal" role="dialog" aria-modal="true" aria-labelledby="modalName">
+<div class="modal-panel">
+<button class="modal-close" id="modalClose" aria-label="Close details">×</button>
+<img class="modal-image" id="modalImage" alt="Jewellery design">
+<div class="modal-content">
+<span class="badge" id="modalCategory"></span>
+<h2 id="modalName"></h2>
+<div class="modal-price" id="modalPrice"></div>
+<h3>Product Details</h3>
+<div class="modal-description" id="modalDetails"></div>
+<a class="modal-order" id="modalOrder" href="#" target="_blank" rel="noopener">WhatsApp પર ઓર્ડર કરો</a>
+<p class="zoom-hint">ફોટા પર ફરી ટેપ કરશો તો ફોટો વધુ મોટો દેખાશે.</p>
+</div>
+</div>
+</div>
 
-      <div class="hero-art" aria-label="Decorative jewellery design illustration">
-        <div class="diamond">◇</div>
-      </div>
-    </section>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script>
+const SUPABASE_URL="https://djnobdajkadqqafenckq.supabase.co";
+const SUPABASE_KEY="sb_publishable_xkFw4ge02yl_op6cdfwCvA_K2ilylUF";
+const WHATSAPP_LINK="https://wa.me/message/ZJLG6ZL7BI2GO1";
+const grid=document.getElementById("productGrid");
+const statusBox=document.getElementById("loadStatus");
+const modal=document.getElementById("productModal");
+let lastFocused=null;
+document.getElementById("year").textContent=new Date().getFullYear();
 
-    <section class="section" id="collection">
-      <span class="eyebrow">OUR COLLECTION</span>
-      <h2 class="section-title">Explore Jewellery Designs</h2>
-      <p class="sub">
-        Browse available designs. Product details and prices are loaded from our catalogue.
-      </p>
+function safeText(value){
+return String(value??"").replace(/[&<>"']/g,char=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[char]));
+}
+function validImageUrl(value){
+try{const url=new URL(value);return url.protocol==="https:"?url.href:"";}catch{return "";}
+}
+function formatPrice(value){
+if(value===null||value===undefined||value==="")return "Contact for price";
+const number=Number(value);
+if(!Number.isFinite(number))return "Contact for price";
+return new Intl.NumberFormat("en-IN",{style:"currency",currency:"INR",maximumFractionDigits:2}).format(number);
+}
+function openDetails(product){
+lastFocused=document.activeElement;
+const imageUrl=validImageUrl(product.image_url||"");
+document.getElementById("modalImage").src=imageUrl;
+document.getElementById("modalImage").alt=product.name||"Jewellery Design";
+document.getElementById("modalImage").style.display=imageUrl?"block":"none";
+document.getElementById("modalCategory").textContent=product.category||"Digital Design";
+document.getElementById("modalName").textContent=product.name||"Jewellery Design";
+document.getElementById("modalPrice").textContent=formatPrice(product.price);
+document.getElementById("modalDetails").textContent=product.details||"Contact us for more details.";
+const message="Hello MER, I am interested in: "+(product.name||"Jewellery Design")+". Price: "+formatPrice(product.price)+". Please share more details.";
+document.getElementById("modalOrder").href=WHATSAPP_LINK+"?text="+encodeURIComponent(message);
+modal.classList.add("open");
+document.body.style.overflow="hidden";
+document.getElementById("modalClose").focus();
+}
+function closeDetails(){
+modal.classList.remove("open");
+document.body.style.overflow="";
+if(lastFocused)lastFocused.focus();
+}
+document.getElementById("modalClose").addEventListener("click",closeDetails);
+modal.addEventListener("click",event=>{if(event.target===modal)closeDetails();});
+document.addEventListener("keydown",event=>{if(event.key==="Escape"&&modal.classList.contains("open"))closeDetails();});
+document.getElementById("modalImage").addEventListener("click",function(){
+if(!this.src)return;
+const win=window.open(this.src,"_blank","noopener");
+});
 
-      <div class="status" id="loadStatus" role="status" aria-live="polite">
-        Loading jewellery designs...
-      </div>
+function renderProducts(products){
+if(!products||products.length===0){
+grid.innerHTML='<div class="empty"><h3>New designs coming soon</h3><p>Our collection is being updated. Contact us for enquiries.</p><a class="primary-btn" href="'+WHATSAPP_LINK+'" target="_blank" rel="noopener">Contact MER</a></div>';
+return;
+}
+grid.innerHTML=products.map(function(product,index){
+const name=safeText(product.name||"Jewellery Design");
+const category=safeText(product.category||"Digital Design");
+const details=safeText(product.details||"Contact us for more details.");
+const imageUrl=validImageUrl(product.image_url||"");
+const price=formatPrice(product.price);
+const imageHtml=imageUrl
+?'<img class="product-image" data-product-index="'+index+'" src="'+safeText(imageUrl)+'" alt="'+name+'" loading="lazy">'
+:'<div class="image-placeholder" aria-label="No product image">◇</div>';
+return '<article class="card">'+imageHtml+
+'<div class="card-content"><span class="badge">'+category+'</span><h3>'+name+'</h3><p>'+details+'</p><div class="price">'+safeText(price)+'</div>'+
+'<button class="primary-btn enquire-btn" type="button" data-product-index="'+index+'">Enquire on WhatsApp</button></div></article>';
+}).join("");
 
-      <section class="grid" id="productGrid">
-        <p>Loading jewellery designs...</p>
-      </section>
-    </section>
-
-    <section class="features">
-      <div class="features-inner">
-        <span class="eyebrow">WHY MER</span>
-        <h2 class="section-title">Made for Jewellery Creators</h2>
-        <p class="sub">A simple place to discover digital jewellery design files.</p>
-
-        <div class="feature-grid">
-          <article class="feature">
-            <div class="feature-icon">◇</div>
-            <h3>Jewellery Designs</h3>
-            <p>Explore different digital jewellery designs in our catalogue.</p>
-          </article>
-
-          <article class="feature">
-            <div class="feature-icon">⌘</div>
-            <h3>Digital Formats</h3>
-            <p>Product listings can specify supported file formats and details.</p>
-          </article>
-
-          <article class="feature">
-            <div class="feature-icon">♡</div>
-            <h3>Direct Contact</h3>
-            <p>Contact MER through WhatsApp to ask about a design or purchase.</p>
-          </article>
-        </div>
-      </div>
-    </section>
-
-    <section class="section about" id="about">
-      <div>
-        <span class="eyebrow">ABOUT MER</span>
-        <h2 class="section-title">Your Jewellery Design Partner</h2>
-        <p class="sub">
-          MER 3D Jewellery Files is a catalogue for digital jewellery designs.
-          Browse available listings and contact us for product information.
-        </p>
-        <a class="primary-btn"
-           href="https://wa.me/message/ZJLG6ZL7BI2GO1"
-           target="_blank" rel="noopener">Talk to Us</a>
-      </div>
-
-      <div class="about-panel">
-        <h3>Looking for a particular design?</h3>
-        <p>
-          Message us with the design name or a reference image.
-          We can discuss availability, file formats and pricing.
-        </p>
-        <p><strong>MER 3D Jewellery Files</strong></p>
-      </div>
-    </section>
-
-    <section class="cta">
-      <span class="eyebrow">LET'S CREATE</span>
-      <h2 class="section-title">Find Your Next Design</h2>
-      <p>
-        Have a question about a jewellery file?
-        Contact MER directly on WhatsApp.
-      </p>
-      <a class="primary-btn"
-         href="https://wa.me/message/ZJLG6ZL7BI2GO1"
-         target="_blank" rel="noopener">Contact on WhatsApp</a>
-    </section>
-  </main>
-
-  <footer>
-    <p><strong>MER 3D JEWELLERY FILES</strong></p>
-    <p>Digital Jewellery CAD Designs · 3DM · STL</p>
-    <p>© <span id="year"></span> MER. All rights reserved.</p>
-  </footer>
-
-  <a class="whatsapp-float"
-     href="https://wa.me/message/ZJLG6ZL7BI2GO1"
-     target="_blank" rel="noopener"
-     aria-label="Contact MER on WhatsApp">WhatsApp ↗</a>
-
-  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-
-  <script>
-    const SUPABASE_URL = "https://djnobdajkadqqafenckq.supabase.co";
-    const SUPABASE_KEY = "sb_publishable_xkFw4ge02yl_op6cdfwCvA_K2ilylUF";
-
-    const grid = document.getElementById("productGrid");
-    const statusBox = document.getElementById("loadStatus");
-
-    document.getElementById("year").textContent = new Date().getFullYear();
-
-    function safeText(value) {
-      return String(value ?? "").replace(/[&<>"']/g, function (char) {
-        return {
-          "&": "&amp;",
-          "<": "&lt;",
-          ">": "&gt;",
-          '"': "&quot;",
-          "'": "&#39;"
-        }[char];
-      });
-    }
-
-    function validImageUrl(value) {
-      try {
-        const url = new URL(value);
-        return url.protocol === "https:" ? url.href : "";
-      } catch {
-        return "";
-      }
-    }
-
-    function formatPrice(value) {
-      const number = Number(value);
-      if (!Number.isFinite(number)) return "Contact for price";
-
-      return new Intl.NumberFormat("en-IN", {
-        style: "currency",
-        currency: "INR",
-        maximumFractionDigits: 2
-      }).format(number);
-    }
-
-    function renderProducts(products) {
-      if (!products || products.length === 0) {
-        grid.innerHTML = `
-          <div class="empty">
-            <h3>New designs coming soon</h3>
-            <p>Our collection is being updated. Contact us for enquiries.</p>
-            <a class="primary-btn"
-               href="https://wa.me/message/ZJLG6ZL7BI2GO1"
-               target="_blank" rel="noopener">Contact MER</a>
-          </div>`;
-        return;
-      }
-
-      grid.innerHTML = products.map(function (product) {
-        const name = safeText(product.name || "Jewellery Design");
-        const category = safeText(product.category || "Digital Design");
-        const details = safeText(product.details || "Contact us for more details.");
-        const imageUrl = validImageUrl(product.image_url || "");
-        const price = formatPrice(product.price);
-
-        const imageHtml = imageUrl
-          ? `<img class="product-image"
-                  src="${safeText(imageUrl)}"
-                  alt="${name}"
-                  loading="lazy"
-                  onerror="this.style.display='none';">`
-          : `<div class="image-placeholder" aria-hidden="true">◇</div>`;
-
-        const message = encodeURIComponent(
-          "Hello MER, I am interested in: " +
-          (product.name || "Jewellery Design") +
-          ". Price: " + price
-        );
-
-        return `
-          <article class="card">
-            ${imageHtml}
-            <div class="card-content">
-              <span class="badge">${category}</span>
-              <h3>${name}</h3>
-              <p>${details}</p>
-              <div class="price">${safeText(price)}</div>
-              <a class="primary-btn"
-                 href="https://wa.me/message/ZJLG6ZL7BI2GO1?text=${message}"
-                 target="_blank" rel="noopener">
-                Enquire on WhatsApp
-              </a>
-            </div>
-          </article>`;
-      }).join("");
-    }
-
-    async function loadProducts() {
-      try {
-        if (!window.supabase) {
-          throw new Error("Supabase library could not load.");
-        }
-
-        const client = window.supabase.createClient(
-          SUPABASE_URL,
-          SUPABASE_KEY
-        );
-
-        const { data, error } = await client
-          .from("products")
-          .select("id, name, price, category, details, image_url")
-          .order("created_at", { ascending: false });
-
-        if (error) throw error;
-
-        renderProducts(data);
-        statusBox.textContent = data.length
-          ? "Showing " + data.length + " available listing(s)."
-          : "No products have been published yet.";
-      } catch (error) {
-        console.error("Product loading error:", error);
-        grid.innerHTML = `
-          <div class="empty">
-            <h3>Catalogue temporarily unavailable</h3>
-            <p>Please contact us on WhatsApp for available designs.</p>
-            <a class="primary-btn"
-               href="https://wa.me/message/ZJLG6ZL7BI2GO1"
-               target="_blank" rel="noopener">Contact MER</a>
-          </div>`;
-
-        statusBox.textContent =
-          "Could not load products. Please check the Supabase connection and table permissions.";
-      }
-    }
-
-    loadProducts();
-  </script>
+grid.querySelectorAll(".product-image").forEach(function(image){
+image.addEventListener("click",function(){
+const product=products[Number(this.dataset.productIndex)];
+if(product)openDetails(product);
+});
+});
+grid.querySelectorAll(".enquire-btn").forEach(function(button){
+button.addEventListener("click",function(){
+const product=products[Number(this.dataset.productIndex)];
+if(product)openDetails(product);
+});
+});
+}
+async function loadProducts(){
+try{
+if(!window.supabase)throw new Error("Supabase library could not load.");
+const client=window.supabase.createClient(SUPABASE_URL,SUPABASE_KEY);
+const {data,error}=await client.from("products").select("id,name,price,category,details,image_url").order("created_at",{ascending:false});
+if(error)throw error;
+renderProducts(data);
+statusBox.textContent=data.length?"Showing "+data.length+" available listing(s).":"No products have been published yet.";
+}catch(error){
+console.error("Product loading error:",error);
+grid.innerHTML='<div class="empty"><h3>Catalogue temporarily unavailable</h3><p>Please contact us on WhatsApp for available designs.</p><a class="primary-btn" href="'+WHATSAPP_LINK+'" target="_blank" rel="noopener">Contact MER</a></div>';
+statusBox.textContent="Could not load products. Please check the Supabase connection and table permissions.";
+}
+}
+loadProducts();
+</script>
 </body>
 </html>
