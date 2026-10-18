@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="gu">
 <head>
@@ -171,8 +170,10 @@ button.small{padding:9px 11px}
   photoPreviews.replaceChildren();
  }
 
+ // સુધારેલું showPhotoPreviews ફંક્શન:
  function showPhotoPreviews(urls){
-  clearPhotoPreviews();
+  // જૂના preview અહીં ફરીથી clear ન કરો.
+  // નહિતર નવા ફોટાની Object URL revoke થઈ જાય છે.
 
   urls.forEach((src,index)=>{
    const tile=document.createElement('div');
@@ -313,10 +314,8 @@ button.small{padding:9px 11px}
   oldImageUrl=p.image_url||null;
   oldImageUrls=getProductImages(p);
 
-  $('name').value=p.name||'';
-  $('price').value=p.price||'';
-  $('category').value=p.category||'Ring';
-  $('details').value=p.details||'';
+  $('name').value=p.name\vert{}\vert{}'';$('price').value=p.price||'';
+  $('category').value=p.category\vert{}\vert{}'Ring';$('details').value=p.details||'';
 
   resetPhotoSelection();
 
@@ -441,8 +440,7 @@ button.small{padding:9px 11px}
  });
 
  $('cancelBtn').addEventListener('click',resetForm);
- $('refreshBtn').addEventListener('click',loadProducts);
- $('search').addEventListener('input',renderProducts);
+ $('refreshBtn').addEventListener('click',loadProducts);$('search').addEventListener('input',renderProducts);
 
  form.addEventListener('submit',async e=>{
   e.preventDefault();
@@ -570,3 +568,4 @@ button.small{padding:9px 11px}
 </script>
 </body>
 </html>
+
