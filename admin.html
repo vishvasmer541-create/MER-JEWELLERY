@@ -21,7 +21,7 @@ label{display:block;font-size:14px;font-weight:700;margin:13px 0 6px}
 input,select,textarea{width:100%;padding:12px;border:1px solid #e4d4dc;border-radius:10px;font:inherit;background:#fff;color:#35232b}
 textarea{min-height:85px;resize:vertical}
 button{border:0;border-radius:10px;padding:12px 15px;background:var(--pink);color:white;font-weight:700;font-size:14px;cursor:pointer}
-button:disabled{opacity:.55}
+button:disabled{opacity:.55;cursor:not-allowed}
 button.secondary{background:#735a67}
 button.danger{background:#b4233e}
 button.light{background:#f9e8ef;color:#762347}
@@ -30,20 +30,23 @@ button.small{padding:9px 11px}
 .actions button{flex:1}
 .grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:14px}
 .product{border:1px solid var(--line);border-radius:14px;overflow:hidden;background:#fff}
-.product img{width:100%;height:190px;object-fit:cover;background:#f9edf2}
+.product img.cover{width:100%;height:190px;object-fit:cover;background:#f9edf2}
 .pbody{padding:14px}
 .pname{font-weight:800;font-size:16px;overflow-wrap:anywhere}
 .price{color:var(--pink);font-weight:800;margin:8px 0}
-.meta{color:var(--muted);font-size:13px}
+.meta{color:var(--muted);font-size:13px;line-height:1.5}
 .desc{font-size:14px;line-height:1.5;overflow-wrap:anywhere;margin:9px 0}
 .product .actions{margin-top:12px}
-#preview{display:block;max-width:100%;max-height:220px;border-radius:12px;margin-top:12px}
 .status{white-space:pre-wrap;overflow-wrap:anywhere;line-height:1.5;font-size:14px}
 .note{background:#fff0f5;padding:12px;border-radius:10px;font-size:13px;line-height:1.5}
 .toolbar{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:16px}
 .toolbar input{flex:1;min-width:150px}
 .hidden{display:none!important}
 .badge{display:inline-block;background:#f9e8ef;color:#84234c;padding:5px 9px;border-radius:20px;font-size:12px;margin-top:8px}
+.photo-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(85px,1fr));gap:9px;margin-top:12px}
+.photo-tile{min-width:0;text-align:center}
+.photo-tile img{width:100%;height:85px;object-fit:cover;border-radius:9px;border:1px solid var(--line)}
+.photo-tile span{display:block;font-size:12px;color:var(--muted);margin-top:4px;overflow-wrap:anywhere}
 @media(max-width:480px){.card{padding:15px}.brand{font-size:19px}.top{align-items:flex-start}header{padding:20px 14px}}
 </style>
 </head>
@@ -54,7 +57,7 @@ button.small{padding:9px 11px}
    <div class="brand">MER JEWELLERY</div>
    <div class="sub">Professional Admin Dashboard</div>
   </div>
-  <button id="logoutBtn" class="secondary hidden">Logout</button>
+  <button id="logoutBtn" type="button" class="secondary hidden">Logout</button>
  </div>
 </header>
 
@@ -66,7 +69,7 @@ button.small{padding:9px 11px}
    <input id="email" type="email" autocomplete="username" required>
    <label for="password">Password</label>
    <input id="password" type="password" autocomplete="current-password" required>
-   <button id="loginBtn" style="width:100%;margin-top:18px">Login to Dashboard</button>
+   <button id="loginBtn" type="submit" style="width:100%;margin-top:18px">Login to Dashboard</button>
   </form>
   <p id="loginStatus" class="status" role="status"></p>
  </section>
@@ -83,18 +86,30 @@ button.small{padding:9px 11px}
 
     <label for="category">કેટેગરી</label>
     <select id="category">
-     <option>Ring</option><option>Pendant</option><option>Earring</option>
-     <option>Bangle</option><option>Necklace</option><option>Custom Models</option>
+     <option>Ring</option>
+     <option>Pendant</option>
+     <option>Earring</option>
+     <option>Bangle</option>
+     <option>Necklace</option>
+     <option>Custom Models</option>
     </select>
 
     <label for="details">પ્રોડક્ટની વિગતો</label>
     <textarea id="details" placeholder="પ્રોડક્ટ વિશે માહિતી લખો"></textarea>
 
-    <label for="photo">પ્રોડક્ટનો ફોટો</label>
-    <input id="photo" type="file" accept="image/jpeg,image/png,image/webp">
-    <img id="preview" class="hidden" alt="Photo preview">
+    <label for="photos">પ્રોડક્ટના 5 ફોટા *</label>
+    <input id="photos" type="file"
+      accept="image/jpeg,image/png,image/webp" multiple>
+    <div id="photoPreviews" class="photo-grid"></div>
+    <p id="photoCount" class="meta">0 / 5 નવા ફોટા પસંદ થયા</p>
 
-    <p class="note">JPG, PNG અથવા WebP, મહત્તમ 5 MB. નવી પ્રોડક્ટ માટે ફોટો જરૂરી છે. Edit કરતી વખતે નવો ફોટો પસંદ કરવો વૈકલ્પિક છે.</p>
+    <p class="note">
+      JPG, PNG અથવા WebP. દરેક ફોટો મહત્તમ 5 MB.
+      નવી પ્રોડક્ટ માટે બરાબર 5 ફોટા જરૂરી છે.
+      Edit કરતી વખતે નવા 5 ફોટા પસંદ કરશો તો જૂની ગેલેરી બદલાશે.
+      નવા ફોટા પસંદ નહીં કરો તો જૂની ગેલેરી જળવાશે.
+    </p>
+
     <div class="actions">
      <button id="saveBtn" type="submit">પ્રોડક્ટ સેવ કરો</button>
      <button id="cancelBtn" type="button" class="secondary hidden">Edit રદ કરો</button>
@@ -118,14 +133,30 @@ button.small{padding:9px 11px}
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <script>
 (() => {
- const URL='https://djnobdajkadqqafenckq.supabase.co';
- const KEY='sb_publishable_xkFw4ge02yl_op6cdfwCvA_K2ilylUF';
- const $=id=>document.getElementById(id);
- let db, products=[], editingId=null, oldImageUrl=null, previewUrl=null;
+ 'use strict';
 
- const loginCard=$('loginCard'), dashboard=$('dashboard');
- const loginStatus=$('loginStatus'), productStatus=$('productStatus');
- const form=$('productForm'), photo=$('photo'), preview=$('preview');
+ const SUPABASE_URL='https://djnobdajkadqqafenckq.supabase.co';
+ const SUPABASE_KEY='sb_publishable_xkFw4ge02yl_op6cdfwCvA_K2ilylUF';
+ const BUCKET='product-images';
+ const $=id=>document.getElementById(id);
+
+ let db;
+ let products=[];
+ let editingId=null;
+ let oldImageUrl=null;
+ let oldImageUrls=[];
+ let selectedPhotos=[];
+ let previewUrls=[];
+
+ const loginCard=$('loginCard');
+ const dashboard=$('dashboard');
+ const loginStatus=$('loginStatus');
+ const productStatus=$('productStatus');
+ const form=$('productForm');
+ const photo=$('photos');
+ const photoPreviews=$('photoPreviews');
+
+ function say(el,msg){el.textContent=msg}
 
  function sessionUI(session){
   loginCard.classList.toggle('hidden',!!session);
@@ -133,133 +164,282 @@ button.small{padding:9px 11px}
   $('logoutBtn').classList.toggle('hidden',!session);
   if(session) loadProducts();
  }
- function say(el,msg){el.textContent=msg}
- function releasePreview(){
-  if(previewUrl){URL.revokeObjectURL(previewUrl);previewUrl=null}
+
+ function clearPhotoPreviews(){
+  previewUrls.forEach(url=>URL.revokeObjectURL(url));
+  previewUrls=[];
+  photoPreviews.replaceChildren();
  }
- function clearPreview(){
-  releasePreview();preview.src='';preview.classList.add('hidden');
+
+ function showPhotoPreviews(urls){
+  clearPhotoPreviews();
+
+  urls.forEach((src,index)=>{
+   const tile=document.createElement('div');
+   tile.className='photo-tile';
+
+   const img=document.createElement('img');
+   img.src=src;
+   img.alt='Product photo '+(index+1);
+
+   const label=document.createElement('span');
+   label.textContent='ફોટો '+(index+1);
+
+   tile.append(img,label);
+   photoPreviews.append(tile);
+  });
  }
- function showPreview(src){
-  preview.src=src;preview.classList.remove('hidden');
+
+ function resetPhotoSelection(){
+  selectedPhotos=[];
+  photo.value='';
+  clearPhotoPreviews();
+  $('photoCount').textContent='0 / 5 નવા ફોટા પસંદ થયા';
  }
+
  function resetForm(){
-  editingId=null;oldImageUrl=null;form.reset();clearPreview();
+  editingId=null;
+  oldImageUrl=null;
+  oldImageUrls=[];
+  form.reset();
+  resetPhotoSelection();
+
   $('formTitle').textContent='＋ નવી પ્રોડક્ટ ઉમેરો';
   $('saveBtn').textContent='પ્રોડક્ટ સેવ કરો';
   $('cancelBtn').classList.add('hidden');
   say(productStatus,'');
  }
+
  function escapeText(value){
   return String(value??'').replace(/[&<>"']/g,c=>({
-   '&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'
+   '&':'&amp;',
+   '<':'&lt;',
+   '>':'&gt;',
+   '"':'&quot;',
+   "'":'&#39;'
   })[c]);
  }
+
+ function getProductImages(p){
+  const urls=Array.isArray(p.image_urls)
+   ? p.image_urls.filter(u=>typeof u==='string'&&u)
+   : [];
+
+  const combined=[...new Set([
+   ...urls,
+   ...(p.image_url?[p.image_url]:[])
+  ])];
+
+  return combined.slice(0,5);
+ }
+
  function renderProducts(){
   const term=$('search').value.trim().toLowerCase();
+
   const list=products.filter(p=>
    String(p.name||'').toLowerCase().includes(term) ||
    String(p.category||'').toLowerCase().includes(term)
   );
-  $('productList').innerHTML='';
+
+  $('productList').replaceChildren();
+
   if(!list.length){
-   say($('listStatus'),products.length?'કોઈ મેળ ખાતી પ્રોડક્ટ મળી નથી.':'હજી કોઈ પ્રોડક્ટ નથી.');
+   say($('listStatus'),
+    products.length
+     ? 'કોઈ મેળ ખાતી પ્રોડક્ટ મળી નથી.'
+     : 'હજી કોઈ પ્રોડક્ટ નથી.');
    return;
   }
+
   say($('listStatus'),'કુલ પ્રોડક્ટ્સ: '+products.length);
+
   list.forEach(p=>{
    const item=document.createElement('article');
    item.className='product';
+
    const img=document.createElement('img');
-   img.src=p.image_url||'';
+   img.className='cover';
+   img.src=p.image_url||getProductImages(p)[0]||'';
    img.alt=p.name||'Product';
    img.loading='lazy';
-   img.onerror=()=>{img.style.display='none'};
+   img.onerror=()=>{img.style.visibility='hidden'};
+
    const body=document.createElement('div');
    body.className='pbody';
+
+   const imageCount=getProductImages(p).length;
+
    body.innerHTML=`
     <div class="pname">${escapeText(p.name)}</div>
     <div class="price">₹${Number(p.price||0).toLocaleString('en-IN')}</div>
     <span class="badge">${escapeText(p.category||'Other')}</span>
+    <p class="meta">${imageCount} ફોટા સેવ છે</p>
     <div class="desc">${escapeText(p.details||'વિગતો નથી')}</div>
     <div class="actions">
      <button type="button" class="small edit">Edit</button>
      <button type="button" class="small danger delete">Delete</button>
     </div>`;
+
    body.querySelector('.edit').addEventListener('click',()=>editProduct(p));
    body.querySelector('.delete').addEventListener('click',()=>deleteProduct(p));
-   item.append(img,body);$('productList').append(item);
+
+   item.append(img,body);
+   $('productList').append(item);
   });
  }
+
  async function loadProducts(){
   if(!db)return;
+
   say($('listStatus'),'પ્રોડક્ટ્સ લોડ થઈ રહી છે...');
+
   const {data,error}=await db.from('products')
-   .select('id,name,price,category,details,image_url,created_at')
+   .select('id,name,price,category,details,image_url,image_urls,created_at')
    .order('created_at',{ascending:false});
+
   if(error){
-   say($('listStatus'),'પ્રોડક્ટ્સ લોડ ન થઈ: '+error.message+
+   say($('listStatus'),
+    'પ્રોડક્ટ્સ લોડ ન થઈ: '+error.message+
     '\nSupabaseમાં products SELECT permission તપાસો.');
    return;
   }
-  products=data||[];renderProducts();
+
+  products=data||[];
+  renderProducts();
  }
+
  function editProduct(p){
-  editingId=p.id;oldImageUrl=p.image_url||null;
+  editingId=p.id;
+  oldImageUrl=p.image_url||null;
+  oldImageUrls=getProductImages(p);
+
   $('name').value=p.name||'';
   $('price').value=p.price||'';
   $('category').value=p.category||'Ring';
   $('details').value=p.details||'';
-  photo.value='';clearPreview();
-  if(oldImageUrl)showPreview(oldImageUrl);
+
+  resetPhotoSelection();
+
+  if(oldImageUrls.length){
+   showPhotoPreviews(oldImageUrls);
+   $('photoCount').textContent=
+    oldImageUrls.length+' જૂના ફોટા. બદલવા માટે નવા 5 પસંદ કરો.';
+  }
+
   $('formTitle').textContent='✎ પ્રોડક્ટ સુધારો';
   $('saveBtn').textContent='ફેરફાર સેવ કરો';
   $('cancelBtn').classList.remove('hidden');
-  say(productStatus,'તમે હવે '+p.name+' માં ફેરફાર કરી રહ્યા છો.');
+
+  say(productStatus,
+   'જૂના ફોટા જાળવવા હોય તો નવા ફોટા પસંદ કરવાની જરૂર નથી.');
+
   window.scrollTo({top:0,behavior:'smooth'});
  }
+
  async function deleteProduct(p){
-  if(!confirm('શું ખરેખર "'+p.name+'" પ્રોડક્ટ ડિલીટ કરવી છે? આ ક્રિયા પાછી ફેરવી શકાશે નહીં.'))return;
+  if(!confirm(
+   'શું ખરેખર "'+p.name+'" પ્રોડક્ટ ડિલીટ કરવી છે? '+
+   'આ ક્રિયા પાછી ફેરવી શકાશે નહીં.'
+  ))return;
+
   say($('listStatus'),'પ્રોડક્ટ ડિલીટ થઈ રહી છે...');
+
   const {error}=await db.from('products').delete().eq('id',p.id);
+
   if(error){
-   say($('listStatus'),'Delete નિષ્ફળ: '+error.message+
+   say($('listStatus'),
+    'Delete નિષ્ફળ: '+error.message+
     '\nSupabaseમાં DELETE permission તપાસો.');
    return;
   }
+
   if(editingId===p.id)resetForm();
+
   say($('listStatus'),'પ્રોડક્ટ ડિલીટ થઈ ગઈ.');
   await loadProducts();
  }
+
  photo.addEventListener('change',()=>{
-  const file=photo.files[0];
-  clearPreview();
-  if(!file)return;
-  if(!file.type.startsWith('image/')){
-   say(productStatus,'યોગ્ય ફોટો પસંદ કરો.');photo.value='';return;
+  const files=Array.from(photo.files||[]);
+
+  selectedPhotos=[];
+  clearPhotoPreviews();
+
+  if(!files.length){
+   $('photoCount').textContent='0 / 5 નવા ફોટા પસંદ થયા';
+   return;
   }
-  if(file.size>5*1024*1024){
-   say(productStatus,'ફોટો 5 MB કરતાં નાનો રાખો.');photo.value='';return;
+
+  if(files.length!==5){
+   say(productStatus,'બરાબર 5 ફોટા પસંદ કરો.');
+   photo.value='';
+   $('photoCount').textContent='0 / 5 નવા ફોટા પસંદ થયા';
+   return;
   }
-  previewUrl=URL.createObjectURL(file);showPreview(previewUrl);
+
+  const allowed=['image/jpeg','image/png','image/webp'];
+
+  for(const file of files){
+   if(!allowed.includes(file.type)){
+    say(productStatus,'ફક્ત JPG, PNG અથવા WebP ફોટા પસંદ કરો.');
+    photo.value='';
+    return;
+   }
+
+   if(file.size>5*1024*1024){
+    say(productStatus,'દરેક ફોટો 5 MB કરતાં નાનો હોવો જોઈએ.');
+    photo.value='';
+    return;
+   }
+  }
+
+  selectedPhotos=files;
+
+  const urls=files.map(file=>{
+   const url=URL.createObjectURL(file);
+   previewUrls.push(url);
+   return url;
+  });
+
+  showPhotoPreviews(urls);
+  $('photoCount').textContent='5 / 5 નવા ફોટા પસંદ થયા';
+  say(productStatus,'5 ફોટા પસંદ થયા. હવે સેવ કરી શકો છો.');
  });
+
  $('loginForm').addEventListener('submit',async e=>{
-  e.preventDefault();$('loginBtn').disabled=true;
+  e.preventDefault();
+  $('loginBtn').disabled=true;
   say(loginStatus,'Login થઈ રહ્યું છે...');
+
   try{
    const {data,error}=await db.auth.signInWithPassword({
-    email:$('email').value.trim(),password:$('password').value
+    email:$('email').value.trim(),
+    password:$('password').value
    });
+
    if(error)throw error;
-   sessionUI(data.session);say(loginStatus,'Login સફળ.');
-  }catch(err){say(loginStatus,'Login ભૂલ: '+err.message)}
-  finally{$('loginBtn').disabled=false}
+
+   sessionUI(data.session);
+   say(loginStatus,'Login સફળ.');
+  }catch(err){
+   say(loginStatus,'Login ભૂલ: '+err.message);
+  }finally{
+   $('loginBtn').disabled=false;
+  }
  });
+
  $('logoutBtn').addEventListener('click',async()=>{
   const {error}=await db.auth.signOut();
-  if(error){say(productStatus,'Logout ભૂલ: '+error.message);return}
-  sessionUI(null);resetForm();
+
+  if(error){
+   say(productStatus,'Logout ભૂલ: '+error.message);
+   return;
+  }
+
+  sessionUI(null);
+  resetForm();
  });
+
  $('cancelBtn').addEventListener('click',resetForm);
  $('refreshBtn').addEventListener('click',loadProducts);
  $('search').addEventListener('input',renderProducts);
@@ -267,57 +447,124 @@ button.small{padding:9px 11px}
  form.addEventListener('submit',async e=>{
   e.preventDefault();
   $('saveBtn').disabled=true;
-  let uploadedPath=null;
+
   try{
    const {data:sd,error:se}=await db.auth.getSession();
    if(se)throw se;
    if(!sd.session)throw Error('પહેલાં Login કરો.');
+
    const name=$('name').value.trim();
    const price=Number($('price').value);
    const category=$('category').value;
    const details=$('details').value.trim();
-   const file=photo.files[0];
+
    if(!name)throw Error('પ્રોડક્ટનું નામ લખો.');
-   if(!Number.isFinite(price)||price<=0)throw Error('યોગ્ય કિંમત લખો.');
-   if(!editingId&&!file)throw Error('નવી પ્રોડક્ટ માટે ફોટો પસંદ કરો.');
-   if(file&&file.size>5*1024*1024)throw Error('ફોટો 5 MB કરતાં નાનો રાખો.');
+   if(!Number.isFinite(price)||price<=0)
+    throw Error('યોગ્ય કિંમત લખો.');
+
+   if(!editingId&&selectedPhotos.length!==5)
+    throw Error('નવી પ્રોડક્ટ માટે બરાબર 5 ફોટા પસંદ કરો.');
+
+   if(selectedPhotos.length&&selectedPhotos.length!==5)
+    throw Error('ફોટા બદલવા માટે બરાબર 5 ફોટા પસંદ કરો.');
 
    let image_url=oldImageUrl;
-   if(file){
-    const safe=file.name.replace(/[^a-zA-Z0-9._-]/g,'_');
-    const path=Date.now()+'-'+Math.random().toString(36).slice(2)+'-'+safe;
-    const {data:up,error:ue}=await db.storage.from('product-images')
-     .upload(path,file,{upsert:false,contentType:file.type});
-    if(ue)throw Error('ફોટો અપલોડ ભૂલ: '+ue.message);
-    uploadedPath=up.path;
-    image_url=db.storage.from('product-images').getPublicUrl(up.path).data.publicUrl;
+   let image_urls=[...oldImageUrls];
+
+   if(selectedPhotos.length===5){
+    const uploadedUrls=[];
+
+    for(let i=0;i<selectedPhotos.length;i++){
+     const file=selectedPhotos[i];
+     const safe=file.name.replace(/[^a-zA-Z0-9._-]/g,'_');
+     const path='products/'+crypto.randomUUID()+'-'+safe;
+
+     say(productStatus,'ફોટો '+(i+1)+' / 5 અપલોડ થઈ રહ્યો છે...');
+
+     const {data:up,error:ue}=await db.storage
+      .from(BUCKET)
+      .upload(path,file,{
+       upsert:false,
+       contentType:file.type,
+       cacheControl:'3600'
+      });
+
+     if(ue)throw Error('ફોટો '+(i+1)+' અપલોડ ભૂલ: '+ue.message);
+
+     const {data:publicData}=db.storage
+      .from(BUCKET)
+      .getPublicUrl(up.path);
+
+     uploadedUrls.push(publicData.publicUrl);
+    }
+
+    image_urls=uploadedUrls;
+    image_url=uploadedUrls[0];
    }
-   const record={name,price,category,details,image_url};
+
+   if(!image_url){
+    throw Error('પ્રોડક્ટનો ફોટો જરૂરી છે.');
+   }
+
+   const record={
+    name,
+    price,
+    category,
+    details,
+    image_url,
+    image_urls
+   };
+
    let result;
+
    if(editingId){
-    result=await db.from('products').update(record).eq('id',editingId);
+    result=await db.from('products')
+     .update(record)
+     .eq('id',editingId);
    }else{
     result=await db.from('products').insert([record]);
    }
-   if(result.error)throw Error('Database ભૂલ: '+result.error.message);
-   say(productStatus,editingId?'પ્રોડક્ટ અપડેટ થઈ ગઈ!':'પ્રોડક્ટ સફળતાપૂર્વક ઉમેરાઈ!');
-   resetForm();await loadProducts();
+
+   if(result.error){
+    throw Error('Database ભૂલ: '+result.error.message);
+   }
+
+   say(productStatus,
+    editingId
+     ? 'પ્રોડક્ટ સફળતાપૂર્વક અપડેટ થઈ ગઈ!'
+     : 'પ્રોડક્ટ અને 5 ફોટા સફળતાપૂર્વક સેવ થયા!');
+
+   resetForm();
+   await loadProducts();
+
   }catch(err){
    say(productStatus,'ભૂલ: '+(err.message||'કંઈક ખોટું થયું.'));
-   if(uploadedPath)say(productStatus,productStatus.textContent+'\nફોટો અપલોડ થયો છે; Database સેવ નિષ્ફળ થયું હોઈ શકે છે.');
-  }finally{$('saveBtn').disabled=false}
+  }finally{
+   $('saveBtn').disabled=false;
+  }
  });
 
  async function initialize(){
   if(!window.supabase){
-   say(loginStatus,'Supabase લોડ થયું નથી. ઇન્ટરનેટ તપાસો.');return;
+   say(loginStatus,'Supabase લોડ થયું નથી. ઇન્ટરનેટ તપાસો.');
+   return;
   }
-  db=window.supabase.createClient(URL,KEY);
-  db.auth.onAuthStateChange((_event,session)=>sessionUI(session));
+
+  db=window.supabase.createClient(SUPABASE_URL,SUPABASE_KEY);
+
+  db.auth.onAuthStateChange((_event,session)=>{
+   sessionUI(session);
+  });
+
   const {data,error}=await db.auth.getSession();
-  if(error)say(loginStatus,'Session ભૂલ: '+error.message);
-  else sessionUI(data.session);
+
+  if(error){
+   say(loginStatus,'Session ભૂલ: '+error.message);
+  }else{
+   sessionUI(data.session);
+  }
  }
+
  initialize();
 })();
 </script>
